@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Tetris 2.0" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/Tetris 2" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add directory="C:/Program Files (x86)/CodeBlocks/SFML-2.5.1/include" />
+		</Compiler>
+		<Linker>
+			<Add library="C:/Program Files (x86)/CodeBlocks/SFML-2.5.1/lib/libsfml-graphics-d.a" />
+			<Add library="C:/Program Files (x86)/CodeBlocks/SFML-2.5.1/lib/libsfml-window-d.a" />
+			<Add library="C:/Program Files (x86)/CodeBlocks/SFML-2.5.1/lib/libsfml-audio-d.a" />
+			<Add library="C:/Program Files (x86)/CodeBlocks/SFML-2.5.1/lib/libsfml-system-d.a" />
+			<Add directory="C:/Program Files (x86)/CodeBlocks/SFML-2.5.1/lib" />
+		</Linker>
+		<Unit filename="source/controleur.cpp" />
+		<Unit filename="source/controleur.h" />
+		<Unit filename="source/decor.cpp" />
+		<Unit filename="source/decor.h" />
+		<Unit filename="source/info.cpp" />
+		<Unit filename="source/info.h" />
+		<Unit filename="source/main.cpp" />
+		<Unit filename="source/menu.cpp" />
+		<Unit filename="source/menu.h" />
+		<Unit filename="source/son.cpp" />
+		<Unit filename="source/son.h" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
