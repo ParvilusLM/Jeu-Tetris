@@ -9,6 +9,7 @@ Controleur::Controleur(sf::RenderWindow &fenetre):m_fenetre(0),m_decor(0)
 
 
 
+
 void Controleur::afficheFondEc()
 {
     m_decor->afficheFondEc();
@@ -28,6 +29,16 @@ void Controleur::gestionDplSouris()
 void Controleur::gestionSelecSouris()
 {
     m_decor->getMenu().selectionElActif();
+}
+
+void Controleur::afficheJeu()
+{
+    m_decor->getJoueur().afficheG();
+}
+
+void Controleur::afficheInfo()
+{
+
 }
 
 Controleur::~Controleur()

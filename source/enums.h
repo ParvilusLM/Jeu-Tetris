@@ -10,11 +10,6 @@ struct Blocs
 
 struct Tetromino
 {
-    bool tetr_en_mouv;
-    bool dir_m_b;
-    bool dir_m_g;
-    bool dir_m_d;
-
     Blocs forme;
     int nb_blocs;
 };

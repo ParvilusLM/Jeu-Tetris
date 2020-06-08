@@ -1,6 +1,7 @@
 #ifndef DEF_JOUEUR
 #define DEF_JOUEUR
 
+#include <iostream>
 #include <SFML/Graphics.hpp>
 #include "enums.h"
 #include "varG.h"
@@ -13,6 +14,8 @@ public:
 
     void mouvementTetromino();
     void mouvementTetrominos();
+
+    void initFileSuiv();
 
     void ajouteTetromino();
     void ajouteTetroFileSuiv();
@@ -31,14 +34,15 @@ public:
     bool rangeePleine();
     void effacementRangee();
 
-    void afficheTetrominos();
+    void afficheG();
 
     ~Joueur();
 
 private:
     sf::RenderWindow* m_fenetre;
 
-    sf::Texture m_tBlocs;
+    sf::Texture m_tBlocs, m_tGrille;
+    sf::Sprite m_sGrille;
 
     float m_dMouv_x,m_dMouv_y;
 

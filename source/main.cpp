@@ -71,7 +71,7 @@ int main()
 
         if(jeuEnCours)
         {
-
+            controleurJ.afficheJeu();
         }
         else
         {
