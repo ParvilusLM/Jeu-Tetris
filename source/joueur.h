@@ -14,6 +14,7 @@ public:
 
     void mouvementTetromino();
     void mouvementTetrominos();
+    void bougerTetromino(int dir);
 
     void initFileSuiv();
 
@@ -26,7 +27,7 @@ public:
     int choixTetromino();
     void rotationTetromino();
 
-    void collisionsGlobales();
+    bool collisionsGlobales();
     bool collisionsFond();
     bool collisionsBords();
     bool collisionsTetrominos();
@@ -43,6 +44,8 @@ private:
 
     sf::Texture m_tBlocs, m_tGrille;
     sf::Sprite m_sGrille;
+
+    bool m_dirG,m_dirD,m_dirB;
 
     float m_dMouv_x,m_dMouv_y;
 

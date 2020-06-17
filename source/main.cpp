@@ -59,6 +59,7 @@ int main()
         if(jeuEnCours)
         {
 
+            controleurJ.gestMajDonnees();
         }
         else
         {

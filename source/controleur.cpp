@@ -41,6 +41,14 @@ void Controleur::afficheInfo()
 
 }
 
+void Controleur::gestMajDonnees()
+{
+    sf::Time repos=sf::seconds(0.5f);
+    sleep(repos);
+
+    m_decor->getJoueur().mouvementTetromino();
+}
+
 Controleur::~Controleur()
 {
     delete m_decor;

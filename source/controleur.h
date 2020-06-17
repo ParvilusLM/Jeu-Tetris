@@ -20,6 +20,8 @@ public:
     void gestionDplSouris();
     void gestionSelecSouris();
 
+    void gestMajDonnees();
+
 
 
 private:
