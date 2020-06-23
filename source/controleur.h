@@ -10,6 +10,10 @@ class Controleur
 public:
     Controleur(sf::RenderWindow &fenetre);
     ~Controleur();
+    void debutJeu();
+    void finJeu();
+    void pauseJeu();
+
     void afficheFondEc();
     void afficheJeu();
     void afficheInfo();
@@ -21,12 +25,19 @@ public:
     void gestionSelecSouris();
 
     void gestMajDonnees();
+    void mouvementTetro(int dir);
+
+    void stockerTetroActif();
 
 
 
 private:
     sf::RenderWindow* m_fenetre;
     Decor* m_decor;
+    float delai;
+    sf::Clock horloge;
+    float timer;
+
 
 };
 

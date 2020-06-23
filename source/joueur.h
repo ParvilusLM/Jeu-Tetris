@@ -16,6 +16,8 @@ public:
     void mouvementTetrominos();
     void bougerTetromino(int dir);
 
+    void gestionTetroFantome();
+
     void initFileSuiv();
 
     void ajouteTetromino();
@@ -25,12 +27,13 @@ public:
     Tetromino nouvelTetromino();
 
     int choixTetromino();
-    void rotationTetromino();
+    void rotationTetromino(int sensR);
 
     bool collisionsGlobales();
-    bool collisionsFond();
+    bool collisionsFond(int typeTetro);
     bool collisionsBords();
-    bool collisionsTetrominos();
+    bool collisionsTetrominos(int typeTetro);
+    void changerDirTetro(int dir);
 
     bool rangeePleine();
     void effacementRangee();
@@ -42,7 +45,7 @@ public:
 private:
     sf::RenderWindow* m_fenetre;
 
-    sf::Texture m_tBlocs, m_tGrille;
+    sf::Texture m_tBlocs, m_tGrille,m_tBFant;
     sf::Sprite m_sGrille;
 
     bool m_dirG,m_dirD,m_dirB;
@@ -53,7 +56,9 @@ private:
     std::vector<Tetromino> m_vecFileSuiv;
     std::vector<Tetromino> m_vecFileDeGarde;
     std::vector<int> m_vecRangeeASupp;
-    Tetromino m_tetroFantome;
+    std::vector<Tetromino> m_vecTetroFantome;
+    std::vector<sf::Vector2f> m_posInitTetro;
+
 
 
 

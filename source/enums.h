@@ -12,6 +12,7 @@ struct Tetromino
 {
     Blocs forme;
     int nb_blocs;
+    int formeTetromino;
 };
 
 enum{
@@ -58,6 +59,12 @@ enum
     FORME_I,
     FORME_Z,
     FORME_O
+};
+
+enum
+{
+    TETRO_FANTOME,
+    TETRO_NORMAL
 };
 
 

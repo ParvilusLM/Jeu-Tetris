@@ -10,6 +10,7 @@ Joueur::Joueur(sf::RenderWindow& fenetre):m_fenetre(0)
 
     m_tBlocs.loadFromFile("donnees/blocs.png");
     m_tGrille.loadFromFile("donnees/grille.png");
+    m_tBFant.loadFromFile("donnees/bloc_fantome.png");
 
     m_sGrille.setTexture(m_tGrille);
 
@@ -23,6 +24,7 @@ Tetromino Joueur::nouvelTetromino()
     int formeTetro=choixTetromino();
 
     Tetromino nouv_tetromino;
+    nouv_tetromino.formeTetromino=formeTetro;
 
     sf::Sprite element_bloc;
     element_bloc.setOrigin(10.f,10.f);
@@ -174,32 +176,56 @@ void Joueur::initFileSuiv()
 
 void Joueur::ajouteTetromino()
 {
-    m_vecTetrominos.insert(m_vecTetrominos.end(),m_vecFileSuiv.at(0));
-
-    //mettre le tetromimo a la bonne place
-    int dernier_el=m_vecTetrominos.size()-1;
-    int compt=0;
-    while(compt<m_vecTetrominos.at(dernier_el).forme.v_blocs.size())
+    m_posInitTetro.clear();
+    if(m_vecFileDeGarde.size()!=0 && tetroLibre)
     {
-        m_vecTetrominos.at(dernier_el).forme.v_blocs.at(compt).move(-15.f*20.f,-4.f*20.f);
-        compt++;
+        m_vecTetrominos.insert(m_vecTetrominos.end(),m_vecFileDeGarde.at(0));
+
+        //mettre le tetromimo a la bonne place
+        int dernier_el=m_vecTetrominos.size()-1;
+        int compt=0;
+        while(compt<m_vecTetrominos.at(dernier_el).forme.v_blocs.size())
+        {
+            m_vecTetrominos.at(dernier_el).forme.v_blocs.at(compt).move(14.f*20.f,-4.f*20.f);
+            m_posInitTetro.insert(m_posInitTetro.end(),m_vecTetrominos.at(dernier_el).forme.v_blocs.at(compt).getPosition());
+            compt++;
+        }
+
+        m_vecFileDeGarde.clear();
+        tetroLibre=false;
     }
-
-    //replacer les tetrominos dans la file suiv
-
-    int comptt=0;
-    while(comptt<4)
+    else
     {
-        m_vecFileSuiv.at(1).forme.v_blocs.at(comptt).move(0,-4.f*20.f);
-        m_vecFileSuiv.at(2).forme.v_blocs.at(comptt).move(0,-4.f*20.f);
 
-        comptt++;
+        m_vecTetrominos.insert(m_vecTetrominos.end(),m_vecFileSuiv.at(0));
+
+        //mettre le tetromimo a la bonne place
+        int dernier_el=m_vecTetrominos.size()-1;
+        int compt=0;
+        while(compt<m_vecTetrominos.at(dernier_el).forme.v_blocs.size())
+        {
+            m_vecTetrominos.at(dernier_el).forme.v_blocs.at(compt).move(-15.f*20.f,-4.f*20.f);
+            m_posInitTetro.insert(m_posInitTetro.end(),m_vecTetrominos.at(dernier_el).forme.v_blocs.at(compt).getPosition());
+            compt++;
+        }
+
+        //replacer les tetrominos dans la file suiv
+
+        int comptt=0;
+        while(comptt<4)
+        {
+            m_vecFileSuiv.at(1).forme.v_blocs.at(comptt).move(0,-4.f*20.f);
+            m_vecFileSuiv.at(2).forme.v_blocs.at(comptt).move(0,-4.f*20.f);
+
+            comptt++;
+        }
+
+
+        m_vecFileSuiv.erase(m_vecFileSuiv.begin());
+
+        m_vecFileSuiv.insert(m_vecFileSuiv.end(),nouvelTetromino());
+
     }
-
-
-    m_vecFileSuiv.erase(m_vecFileSuiv.begin());
-
-    m_vecFileSuiv.insert(m_vecFileSuiv.end(),nouvelTetromino());
 
 }
 
@@ -210,9 +236,78 @@ void Joueur::ajouteTetroFileSuiv()
 
 void Joueur::ajouteTetroFileDeGarde()
 {
+    if(m_vecFileDeGarde.size()==0)
+    {
+        //m_vecFileDeGarde.clear();
+        int dern_el=m_vecTetrominos.size()-1;
 
+        m_vecFileDeGarde.insert(m_vecFileDeGarde.end(), m_vecTetrominos.at(dern_el));
+
+        //repositionner le tetromino
+        int dernier_el=m_vecFileDeGarde.size()-1;
+        int compt=0;
+        while(compt<m_vecFileDeGarde.at(dernier_el).forme.v_blocs.size())
+        {
+            m_vecFileDeGarde.at(dernier_el).forme.v_blocs.at(compt).setPosition(m_posInitTetro.at(compt).x-14*20.f,m_posInitTetro.at(compt).y+4*20.f);
+            compt++;
+        }
+
+        m_vecTetrominos.erase(m_vecTetrominos.end());
+        ajouteTetromino();
+
+    }
+    else
+    {
+        tetroLibre=true;
+    }
 }
 
+
+void Joueur::gestionTetroFantome()
+{
+    m_vecTetroFantome.clear();
+
+    m_vecTetroFantome.insert(m_vecTetroFantome.end(), m_vecTetrominos.at(m_vecTetrominos.size()-1));
+
+    //changer la texture des blocs
+    int compt=0;
+    while(compt<m_vecTetroFantome.at(0).forme.v_blocs.size())
+    {
+        m_vecTetroFantome.at(0).forme.v_blocs.at(compt).setTexture(m_tBFant);
+        m_vecTetroFantome.at(0).forme.v_blocs.at(compt).setTextureRect(sf::IntRect(0,0,20,20));
+
+        compt++;
+    }
+
+    //le tetro jusqu'a collision
+    bool collisionF=false;
+    bool collisionT=false;
+
+    while(!collisionF && !collisionT)
+    {
+        if(collisionsTetrominos(TETRO_FANTOME))
+        {
+            collisionT=true;
+
+        }
+        else if(collisionsFond(TETRO_FANTOME))
+        {
+            collisionF=true;
+        }
+        else
+        {
+            int dern_el=m_vecTetroFantome.size()-1;
+            int compt=0;
+            while(compt < m_vecTetroFantome.at(dern_el).forme.v_blocs.size())
+            {
+                m_vecTetroFantome.at(dern_el).forme.v_blocs.at(compt).move(0,20.f);
+                compt++;
+            }
+        }
+    }
+
+
+}
 
 int Joueur::choixTetromino()
 {
@@ -232,8 +327,8 @@ void Joueur::mouvementTetromino()
 
     if(collisionG)
     {
-        collisionF=collisionsFond();
-        collisionT=collisionsTetrominos();
+        collisionF=collisionsFond(TETRO_NORMAL);
+        collisionT=collisionsTetrominos(TETRO_NORMAL);
     }
 
     if(m_dirG && !collisionG)
@@ -244,7 +339,7 @@ void Joueur::mouvementTetromino()
     {
         bougerTetromino(mouv_d);
     }
-    else if(m_dirB && !collisionG)
+    else if(m_dirB && !collisionF && !collisionT)
     {
         bougerTetromino(mouv_b);
     }
@@ -263,6 +358,12 @@ void Joueur::mouvementTetromino()
 
         }
     }
+
+    m_dirB=true;
+    m_dirG=false;
+    m_dirD=false;
+
+    gestionTetroFantome();
 }
 
 void Joueur::mouvementTetrominos()
@@ -303,7 +404,7 @@ void Joueur::bougerTetromino(int dir)
     }
 }
 
-void Joueur::rotationTetromino()
+void Joueur::rotationTetromino(int sensR)
 {
 
 }
@@ -312,7 +413,7 @@ bool Joueur::collisionsGlobales()
 {
     bool collision=false;
 
-    if(collisionsFond() || collisionsBords() || collisionsTetrominos())
+    if(collisionsFond(TETRO_NORMAL) || collisionsBords() || collisionsTetrominos(TETRO_NORMAL))
     {
         collision=true;
     }
@@ -320,21 +421,41 @@ bool Joueur::collisionsGlobales()
     return collision;
 }
 
-bool Joueur::collisionsFond()
+bool Joueur::collisionsFond(int typeTetro)
 {
+    int typeT=typeTetro;
     bool collision=false;
 
-    int dern_el=m_vecTetrominos.size()-1;
-
-    int compt=0;
-    while(compt<m_vecTetrominos.at(dern_el).forme.v_blocs.size())
+    if(typeT==TETRO_NORMAL)
     {
-        if(m_vecTetrominos.at(dern_el).forme.v_blocs.at(compt).getPosition().y+20.f > 560.f)
+        int dern_el=m_vecTetrominos.size()-1;
+
+        int compt=0;
+        while(compt<m_vecTetrominos.at(dern_el).forme.v_blocs.size())
         {
-            collision=true;
+            if(m_vecTetrominos.at(dern_el).forme.v_blocs.at(compt).getPosition().y+20.f > 560.f)
+            {
+                collision=true;
+            }
+            compt++;
         }
-        compt++;
+
     }
+    else
+    {
+        int dern_el=m_vecTetroFantome.size()-1;
+
+        int compt=0;
+        while(compt<m_vecTetroFantome.at(dern_el).forme.v_blocs.size())
+        {
+            if(m_vecTetroFantome.at(dern_el).forme.v_blocs.at(compt).getPosition().y+20.f > 560.f)
+            {
+                collision=true;
+            }
+            compt++;
+        }
+    }
+
 
     return collision;
 
@@ -342,86 +463,146 @@ bool Joueur::collisionsFond()
 
 bool Joueur::collisionsBords()
 {
-    bool collision=false;
+    bool collisionB=false;
 
-    return collision;
-}
-
-bool Joueur::collisionsTetrominos()
-{
-    bool collision=false;
-
-    std::vector<sf::Vector2f> ensemblePosFictif;
-
-    if(m_dirG)
-    {
-        int dern_el=m_vecTetrominos.size()-1;
-
-        int compt=0;
-        while(compt<m_vecTetrominos.at(dern_el).forme.v_blocs.size())
-        {
-            sf::Vector2f posF;
-            posF.x=m_vecTetrominos.at(dern_el).forme.v_blocs.at(compt).getPosition().x-20.f;
-            posF.y=m_vecTetrominos.at(dern_el).forme.v_blocs.at(compt).getPosition().y;
-
-            ensemblePosFictif.insert(ensemblePosFictif.end(),posF);
-            compt++;
-        }
-    }
-    else if(m_dirD)
-    {
-        int dern_el=m_vecTetrominos.size()-1;
-
-        int compt=0;
-        while(compt<m_vecTetrominos.at(dern_el).forme.v_blocs.size())
-        {
-            sf::Vector2f posF;
-            posF.x=m_vecTetrominos.at(dern_el).forme.v_blocs.at(compt).getPosition().x+20.f;
-            posF.y=m_vecTetrominos.at(dern_el).forme.v_blocs.at(compt).getPosition().y;
-
-            ensemblePosFictif.insert(ensemblePosFictif.end(),posF);
-            compt++;
-        }
-    }
-    else
-    {
-        int dern_el=m_vecTetrominos.size()-1;
-
-        int compt=0;
-        while(compt<m_vecTetrominos.at(dern_el).forme.v_blocs.size())
-        {
-            sf::Vector2f posF;
-            posF.x=m_vecTetrominos.at(dern_el).forme.v_blocs.at(compt).getPosition().x;
-            posF.y=m_vecTetrominos.at(dern_el).forme.v_blocs.at(compt).getPosition().y+20.f;
-
-            ensemblePosFictif.insert(ensemblePosFictif.end(),posF);
-            compt++;
-        }
-    }
+    int dern_el=m_vecTetrominos.size()-1;
 
     int compt=0;
-    while(compt<ensemblePosFictif.size())
+    while(compt<m_vecTetrominos.at(dern_el).forme.v_blocs.size())
     {
-        int compt2=0;
-        while(compt2<m_vecTetrominos.size()-1)
+        if(m_vecTetrominos.at(dern_el).forme.v_blocs.at(compt).getPosition().x-20.f<17*20.f && m_dirG )
         {
-            int compt3=0;
-            while(compt3<m_vecTetrominos.at(compt2).forme.v_blocs.size())
-            {
-                if(m_vecTetrominos.at(compt2).forme.v_blocs.at(compt3).getPosition()==ensemblePosFictif.at(compt))
-                {
-                    collision=true;
-                }
-                compt3++;
-            }
+            collisionB=true;
+        }
 
-            compt2++;
-
+        if( m_vecTetrominos.at(dern_el).forme.v_blocs.at(compt).getPosition().x+20.f>27*20.f && m_dirD)
+        {
+            collisionB=true;
         }
 
         compt++;
     }
 
+    return collisionB;
+}
+
+bool Joueur::collisionsTetrominos(int typeTetro)
+{
+    int typeT=typeTetro;
+    bool collision=false;
+    std::vector<sf::Vector2f> ensemblePosFictif;
+
+    if(typeT==TETRO_NORMAL)
+    {
+        if(m_dirG)
+        {
+            int dern_el=m_vecTetrominos.size()-1;
+
+            int compt=0;
+            while(compt<m_vecTetrominos.at(dern_el).forme.v_blocs.size())
+            {
+                sf::Vector2f posF;
+                posF.x=m_vecTetrominos.at(dern_el).forme.v_blocs.at(compt).getPosition().x-20.f;
+                posF.y=m_vecTetrominos.at(dern_el).forme.v_blocs.at(compt).getPosition().y;
+
+                ensemblePosFictif.insert(ensemblePosFictif.end(),posF);
+                compt++;
+            }
+        }
+        else if(m_dirD)
+        {
+            int dern_el=m_vecTetrominos.size()-1;
+
+            int compt=0;
+            while(compt<m_vecTetrominos.at(dern_el).forme.v_blocs.size())
+            {
+                sf::Vector2f posF;
+                posF.x=m_vecTetrominos.at(dern_el).forme.v_blocs.at(compt).getPosition().x+20.f;
+                posF.y=m_vecTetrominos.at(dern_el).forme.v_blocs.at(compt).getPosition().y;
+
+                ensemblePosFictif.insert(ensemblePosFictif.end(),posF);
+                compt++;
+            }
+        }
+        else
+        {
+            int dern_el=m_vecTetrominos.size()-1;
+
+            int compt=0;
+            while(compt<m_vecTetrominos.at(dern_el).forme.v_blocs.size())
+            {
+                sf::Vector2f posF;
+                posF.x=m_vecTetrominos.at(dern_el).forme.v_blocs.at(compt).getPosition().x;
+                posF.y=m_vecTetrominos.at(dern_el).forme.v_blocs.at(compt).getPosition().y+20.f;
+
+                ensemblePosFictif.insert(ensemblePosFictif.end(),posF);
+                compt++;
+            }
+        }
+
+        int compt=0;
+        while(compt<ensemblePosFictif.size())
+        {
+            int compt2=0;
+            while(compt2<m_vecTetrominos.size()-1)
+            {
+                int compt3=0;
+                while(compt3<m_vecTetrominos.at(compt2).forme.v_blocs.size())
+                {
+                    if(m_vecTetrominos.at(compt2).forme.v_blocs.at(compt3).getPosition()==ensemblePosFictif.at(compt))
+                    {
+                        collision=true;
+                    }
+                    compt3++;
+                }
+
+                compt2++;
+
+            }
+
+            compt++;
+        }
+
+    }
+    else
+    {
+        int dern_el=m_vecTetroFantome.size()-1;
+
+        int compt=0;
+        while(compt<m_vecTetroFantome.at(dern_el).forme.v_blocs.size())
+        {
+            sf::Vector2f posF;
+            posF.x=m_vecTetroFantome.at(dern_el).forme.v_blocs.at(compt).getPosition().x;
+            posF.y=m_vecTetroFantome.at(dern_el).forme.v_blocs.at(compt).getPosition().y+20.f;
+
+            ensemblePosFictif.insert(ensemblePosFictif.end(),posF);
+            compt++;
+        }
+
+
+        int comptt=0;
+        while(comptt<ensemblePosFictif.size())
+        {
+            int compt2=0;
+            while(compt2<m_vecTetrominos.size()-1)
+            {
+                int compt3=0;
+                while(compt3<m_vecTetrominos.at(compt2).forme.v_blocs.size())
+                {
+                    if(m_vecTetrominos.at(compt2).forme.v_blocs.at(compt3).getPosition()==ensemblePosFictif.at(comptt))
+                    {
+                        collision=true;
+                    }
+                    compt3++;
+                }
+
+                compt2++;
+
+            }
+
+            comptt++;
+        }
+    }
 
 
     return collision;
@@ -429,12 +610,38 @@ bool Joueur::collisionsTetrominos()
 
 bool Joueur::rangeePleine()
 {
-    int rangee=1;
-    while(rangee<21)
+    bool rangeePl=false;
+    int rangee=0;
+    while(rangee<20)
     {
+        int casesRempli=0;
+
+        int compt=0;
+        while(compt<m_vecTetrominos.size())
+        {
+            int compt2=0;
+            while(compt2<m_vecTetrominos.at(compt).forme.v_blocs.size())
+            {
+                if(m_vecTetrominos.at(compt).forme.v_blocs.at(compt2).getPosition().y==8*20.f+rangee*20.f+10.f)
+                {
+                    casesRempli++;
+                }
+                compt2++;
+            }
+
+            compt++;
+        }
+
+        if(casesRempli==10)
+        {
+            rangeePl=true;
+            m_vecRangeeASupp.insert(m_vecRangeeASupp.end(),rangee+1);
+        }
 
         rangee++;
     }
+
+    return rangeePl;
 }
 
 void Joueur::effacementRangee()
@@ -493,11 +700,43 @@ void Joueur::afficheG()
         compt3++;
     }
 
+    if(m_vecTetroFantome.size()!=0)
+    {
+        int compt4=0;
+        while(compt4<m_vecTetroFantome.at(0).forme.v_blocs.size())
+        {
+            m_fenetre->draw(m_vecTetroFantome.at(0).forme.v_blocs.at(compt4));
+            compt4++;
+        }
+    }
 
 
+
+}
+
+void Joueur::changerDirTetro(int dir)
+{
+    if(dir==mouv_g)
+    {
+        m_dirG=true;
+        m_dirD=false;
+        m_dirB=false;
+
+    }
+    else if(dir==mouv_d)
+    {
+        m_dirG=false;
+        m_dirD=true;
+        m_dirB=false;
+    }
+    else
+    {
+
+    }
 }
 
 Joueur::~Joueur()
 {
 
 }
+

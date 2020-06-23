@@ -4,6 +4,9 @@ Controleur::Controleur(sf::RenderWindow &fenetre):m_fenetre(0),m_decor(0)
 {
     m_fenetre= &fenetre;
 
+    delai=0.5f;
+    timer=0;
+
     m_decor = new Decor(*m_fenetre);
 }
 
@@ -43,10 +46,27 @@ void Controleur::afficheInfo()
 
 void Controleur::gestMajDonnees()
 {
-    sf::Time repos=sf::seconds(0.5f);
-    sleep(repos);
+    float temps= horloge.getElapsedTime().asSeconds();
+    horloge.restart();
+    timer+=temps;
 
+    if(timer>delai)
+    {
+        m_decor->getJoueur().mouvementTetromino();
+        timer=0;
+    }
+
+}
+
+void Controleur::mouvementTetro(int dir)
+{
+    m_decor->getJoueur().changerDirTetro(dir);
     m_decor->getJoueur().mouvementTetromino();
+}
+
+void Controleur::stockerTetroActif()
+{
+    m_decor->getJoueur().ajouteTetroFileDeGarde();
 }
 
 Controleur::~Controleur()
