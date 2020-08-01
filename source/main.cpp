@@ -80,13 +80,14 @@ int main()
 
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)  && jeuEnCours && !jeuPause)
             {
-
+                controleurJ.rotationTertro(ROTATION_D);
             }
 
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && jeuEnCours && !jeuPause)
             {
 
             }
+
 
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && jeuEnCours && !jeuPause)
             {
@@ -108,20 +109,22 @@ int main()
 
             }
 
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)  && jeuEnCours)
-            {
-
-            }
-
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Z) && jeuEnCours && !jeuPause)
             {
-
+                controleurJ.rotationTertro(ROTATION_G);
             }
 
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::C) && jeuEnCours && !jeuPause)
             {
                 controleurJ.stockerTetroActif();
             }
+
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)  && jeuEnCours)
+            {
+                controleurJ.pauseJeu();
+            }
+
+
 
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && jeuEnCours && !jeuPause)
             {
@@ -135,8 +138,11 @@ int main()
 
         if(jeuEnCours)
         {
+            if(!jeuPause)
+            {
+                controleurJ.gestMajDonnees();
+            }
 
-            controleurJ.gestMajDonnees();
         }
         else
         {

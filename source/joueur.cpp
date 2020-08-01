@@ -347,10 +347,21 @@ void Joueur::mouvementTetromino()
     {
         if(m_dirB && collisionF)
         {
+            if(rangeePleine())
+            {
+                effacementRangee();
+                mouvementTetrominos();
+            }
+
             ajouteTetromino();
         }
         else if(m_dirB && collisionT)
         {
+            if(rangeePleine())
+            {
+                effacementRangee();
+                mouvementTetrominos();
+            }
             ajouteTetromino();
         }
         else
@@ -368,7 +379,25 @@ void Joueur::mouvementTetromino()
 
 void Joueur::mouvementTetrominos()
 {
-
+    int compt=0;
+    while(compt<m_vecRangeeASupp.size())
+    {
+        int compt2=0;
+        while(compt2<m_vecTetrominos.size())
+        {
+            int compt3=0;
+            while(compt3<m_vecTetrominos.at(compt2).forme.v_blocs.size())
+            {
+                if(m_vecTetrominos.at(compt2).forme.v_blocs.at(compt3).getPosition().y<m_vecRangeeASupp.at(compt)*20.f+8*20.f+10)
+                {
+                    m_vecTetrominos.at(compt2).forme.v_blocs.at(compt3).move(0,20.f);
+                }
+                compt3++;
+            }
+            compt2++;
+        }
+        compt++;
+    }
 }
 
 void Joueur::bougerTetromino(int dir)
@@ -406,6 +435,118 @@ void Joueur::bougerTetromino(int dir)
 
 void Joueur::rotationTetromino(int sensR)
 {
+    std::vector<sf::Vector2f> m_posFictTetro;
+
+    int dern_el=m_vecTetrominos.size()-1;
+
+    int compt=0;
+    while(compt<m_vecTetrominos.at(dern_el).forme.v_blocs.size())
+    {
+        m_posFictTetro.insert(m_posFictTetro.end(),m_vecTetrominos.at(dern_el).forme.v_blocs.at(compt).getPosition());
+        compt++;
+    }
+
+
+    int formeTetro=m_vecTetrominos.at(dern_el).formeTetromino;
+
+    //determiner le centre de rotation
+    sf::Vector2f centreRot;
+
+    if(formeTetro==FORME_J)
+    {
+        centreRot.x=m_posFictTetro.at(1).x;
+        centreRot.y=m_posFictTetro.at(1).y;
+    }
+    else if(formeTetro==FORME_T)
+    {
+        centreRot.x=m_posFictTetro.at(1).x;
+        centreRot.y=m_posFictTetro.at(1).y;
+    }
+    else if(formeTetro==FORME_L)
+    {
+        centreRot.x=m_posFictTetro.at(1).x;
+        centreRot.y=m_posFictTetro.at(1).y;
+    }
+    else if(formeTetro==FORME_S)
+    {
+        centreRot.x=m_posFictTetro.at(0).x;
+        centreRot.y=m_posFictTetro.at(0).y;
+    }
+    else if(formeTetro==FORME_I)
+    {
+        if(m_posFictTetro.at(1).x==m_posFictTetro.at(2).x && m_posFictTetro.at(1).y<m_posFictTetro.at(2).y)
+        {
+            centreRot.x=m_posFictTetro.at(1).x-10.f;
+            centreRot.y=m_posFictTetro.at(1).y+10.f;
+        }
+        else if(m_posFictTetro.at(1).x==m_posFictTetro.at(2).x && m_posFictTetro.at(1).y>m_posFictTetro.at(2).y)
+        {
+            centreRot.x=m_posFictTetro.at(1).x+10.f;
+            centreRot.y=m_posFictTetro.at(1).y-10.f;
+        }
+        else if(m_posFictTetro.at(1).x < m_posFictTetro.at(2).x && m_posFictTetro.at(1).y==m_posFictTetro.at(2).y)
+        {
+            centreRot.x=m_posFictTetro.at(1).x+10.f;
+            centreRot.y=m_posFictTetro.at(1).y+10.f;
+        }
+        else if(m_posFictTetro.at(1).x > m_posFictTetro.at(2).x && m_posFictTetro.at(1).y==m_posFictTetro.at(2).y)
+        {
+            centreRot.x=m_posFictTetro.at(1).x-10.f;
+            centreRot.y=m_posFictTetro.at(1).y-10.f;
+        }
+        else
+        {
+
+        }
+    }
+    else if(formeTetro==FORME_Z)
+    {
+        centreRot.x=m_posFictTetro.at(1).x;
+        centreRot.y=m_posFictTetro.at(1).y;
+    }
+    else
+    {
+
+    }
+
+
+    //effectuer la rotation de chaque bloc
+    if(formeTetro!=FORME_O)
+    {
+        int comptt=0;
+        while(comptt<4)
+        {
+            //std::cout<<"Centre de rotation : "<<centreRot.x<<" , "<<centreRot.y<<std::endl;
+
+            float xd=0.f,yd=0.f;
+            xd=m_posFictTetro.at(comptt).x-centreRot.x;
+            yd=m_posFictTetro.at(comptt).y-centreRot.y;
+
+            //std::cout<<"xd: "<<xd<<std::endl;
+            //std::cout<<"yd: "<<yd<<std::endl;
+
+            float xf=0.f,yf=0.f;
+
+            if(sensR==ROTATION_G)
+            {
+                xf=centreRot.x+(yd*1);
+                yf=centreRot.y+(-xd*1);
+            }
+            else
+            {
+                xf=centreRot.x+(-yd*1);
+                yf=centreRot.y+(xd*1);
+            }
+
+
+            //std::cout<<"Position xf: "<<xf<<std::endl;
+            //std::cout<<"Position yf: "<<yf<<std::endl;
+
+            m_vecTetrominos.at(dern_el).forme.v_blocs.at(comptt).setPosition(xf,yf);
+
+            comptt++;
+        }
+    }
 
 }
 
@@ -610,6 +751,7 @@ bool Joueur::collisionsTetrominos(int typeTetro)
 
 bool Joueur::rangeePleine()
 {
+    m_vecRangeeASupp.clear();
     bool rangeePl=false;
     int rangee=0;
     while(rangee<20)
@@ -635,7 +777,8 @@ bool Joueur::rangeePleine()
         if(casesRempli==10)
         {
             rangeePl=true;
-            m_vecRangeeASupp.insert(m_vecRangeeASupp.end(),rangee+1);
+            m_vecRangeeASupp.insert(m_vecRangeeASupp.end(),rangee);
+            std::cout<<"Ranger a supprimer: "<<rangee<<std::endl;
         }
 
         rangee++;
@@ -646,7 +789,58 @@ bool Joueur::rangeePleine()
 
 void Joueur::effacementRangee()
 {
+    int compt=0;
+    while(compt<m_vecRangeeASupp.size())
+    {
+        int indice1=0;
+        int nombreT=m_vecTetrominos.size();
+        int compt2=0;
+        while(compt2<nombreT)
+        {
+            int indice2=0;
+            int nombreBloc=m_vecTetrominos.at(indice1).forme.v_blocs.size();
+            int compt3=0;
+            while(compt3<nombreBloc)
+            {
+                if(m_vecTetrominos.at(indice1).forme.v_blocs.at(indice2).getPosition().y==m_vecRangeeASupp.at(compt)*20.f+8*20.f+10)
+                {
+                    if(m_vecTetrominos.at(indice1).forme.v_blocs.size()>1)
+                    {
+                        std::cout<<"\n Effacement simple \n"<<std::endl;
+                        m_vecTetrominos.at(indice1).forme.v_blocs.erase(m_vecTetrominos.at(indice1).forme.v_blocs.begin()+indice2);
+                        std::cout<<"Effacement bloc. Restant:"<<m_vecTetrominos.at(indice1).forme.v_blocs.size()<<std::endl;
+                    }
+                    else
+                    {
+                        if(m_vecTetrominos.size()==1)
+                        {
+                            std::cout<<"\n Effacement du dernier tetromino \n"<<std::endl;
+                            m_vecTetrominos.clear();
+                            indice1--;
+                            std::cout<<"Effacement  de tout les Tetrominos. Restant:"<<m_vecTetrominos.size()<<std::endl;
+                        }
+                        else
+                        {
+                            std::cout<<"\n Effacement tetromino \n"<<std::endl;
+                            m_vecTetrominos.erase(m_vecTetrominos.begin()+indice1);
+                            indice1--;
+                            std::cout<<"Effacement Tetromino. Restant:"<<m_vecTetrominos.size()<<std::endl;
+                        }
 
+                    }
+                    indice2--;
+                }
+                indice2++;
+                compt3++;
+            }
+
+
+            indice1++;
+            compt2++;
+        }
+
+        compt++;
+    }
 }
 
 void Joueur::afficheG()

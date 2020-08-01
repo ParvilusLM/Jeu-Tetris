@@ -67,5 +67,11 @@ enum
     TETRO_NORMAL
 };
 
+enum
+{
+    ROTATION_G,
+    ROTATION_D
+};
+
 
 #endif // DEF_ENUMS

@@ -4,13 +4,17 @@ Controleur::Controleur(sf::RenderWindow &fenetre):m_fenetre(0),m_decor(0)
 {
     m_fenetre= &fenetre;
 
-    delai=0.5f;
+    delai=0.3f;
     timer=0;
 
     m_decor = new Decor(*m_fenetre);
 }
 
 
+void Controleur::rotationTertro(int sensR)
+{
+    m_decor->getJoueur().rotationTetromino(sensR);
+}
 
 
 void Controleur::afficheFondEc()
@@ -67,6 +71,21 @@ void Controleur::mouvementTetro(int dir)
 void Controleur::stockerTetroActif()
 {
     m_decor->getJoueur().ajouteTetroFileDeGarde();
+}
+
+void Controleur::pauseJeu()
+{
+    std::cout<<"Fonction pauseJeu"<<std::endl;
+    if(jeuPause)
+    {
+        jeuPause=false;
+    }
+    else
+    {
+        jeuPause=true;
+
+    }
+
 }
 
 Controleur::~Controleur()

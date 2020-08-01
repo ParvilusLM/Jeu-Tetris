@@ -23,6 +23,7 @@ public:
 
     void gestionDplSouris();
     void gestionSelecSouris();
+    void rotationTertro(int sensR);
 
     void gestMajDonnees();
     void mouvementTetro(int dir);

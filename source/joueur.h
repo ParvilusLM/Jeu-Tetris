@@ -2,6 +2,7 @@
 #define DEF_JOUEUR
 
 #include <iostream>
+#include <cmath>
 #include <SFML/Graphics.hpp>
 #include "enums.h"
 #include "varG.h"
