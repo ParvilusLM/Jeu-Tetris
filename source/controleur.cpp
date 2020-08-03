@@ -10,6 +10,11 @@ Controleur::Controleur(sf::RenderWindow &fenetre):m_fenetre(0),m_decor(0)
     m_decor = new Decor(*m_fenetre);
 }
 
+void Controleur::debutJeu()
+{
+    m_decor->getJoueur().effacementDonnees();
+    m_decor->getJoueur().initJoueur();
+}
 
 void Controleur::rotationTertro(int sensR)
 {
@@ -41,6 +46,12 @@ void Controleur::gestionSelecSouris()
 void Controleur::afficheJeu()
 {
     m_decor->getJoueur().afficheG();
+
+
+    if(jeuPause)
+    {
+        afficheMenu();
+    }
 }
 
 void Controleur::afficheInfo()
@@ -60,12 +71,31 @@ void Controleur::gestMajDonnees()
         timer=0;
     }
 
+    if(jeuFinPartie)
+    {
+        std::cout<<"Fin de partie Jeu"<<std::endl;
+        jeuPause=true;
+
+        //m_decor->getJoueur().effacementDonnees();
+        m_decor->getMenu().setTypeMenu(MenuFinPartie);
+        jeuFinPartie=false;
+    }
+
+
+    if(jeuRejouer)
+    {
+        debutJeu();
+        jeuRejouer=false;
+    }
+
+
 }
 
 void Controleur::mouvementTetro(int dir)
 {
     m_decor->getJoueur().changerDirTetro(dir);
     m_decor->getJoueur().mouvementTetromino();
+
 }
 
 void Controleur::stockerTetroActif()
@@ -83,10 +113,12 @@ void Controleur::pauseJeu()
     else
     {
         jeuPause=true;
+        m_decor->getMenu().setTypeMenu(MenuPause);
 
     }
 
 }
+
 
 Controleur::~Controleur()
 {

@@ -12,7 +12,7 @@ class Joueur
 {
 public:
     Joueur(sf::RenderWindow& fenetre);
-
+    void initJoueur();
     void mouvementTetromino();
     void mouvementTetrominos();
     void bougerTetromino(int dir);
@@ -40,6 +40,9 @@ public:
     void effacementRangee();
 
     void afficheG();
+
+    void finJeu();
+    void effacementDonnees();
 
     ~Joueur();
 

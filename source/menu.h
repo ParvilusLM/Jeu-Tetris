@@ -20,6 +20,8 @@ public:
     void initMenuPause();
     void initMenuFinPart();
 
+    void setTypeMenu(int menuActuel);
+
     void afficheMenuP();
     void afficheMenuI();
     void afficheMenuI1();

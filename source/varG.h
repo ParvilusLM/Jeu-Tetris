@@ -3,6 +3,8 @@
 
 extern bool jeuEnCours;
 extern bool jeuPause;
+extern bool jeuDebut;
+extern bool jeuRejouer;
 extern bool jeuFinPartie;
 extern int sourisX,sourisY;
 extern bool tetroLibre;

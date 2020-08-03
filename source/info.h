@@ -22,6 +22,7 @@ public:
 private:
     sf::RenderWindow *m_fenetre;
 
+    sf::Text m_txtNiveau;
     sf::Text m_txtNomsJ;
     sf::Text m_txtScoresJ;
     sf::Text m_txtInfoJeu;

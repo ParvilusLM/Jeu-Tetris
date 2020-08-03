@@ -8,6 +8,8 @@ using namespace sf;
 bool jeuEnCours=false;
 bool jeuPause=false;
 bool jeuFinPartie=false;
+bool jeuDebut=false;
+bool jeuRejouer=false;
 int sourisX=0,sourisY=0;
 bool tetroLibre=false;
 
@@ -24,7 +26,7 @@ int main()
 
     sf::Clock horl;
     float timer=0;
-    float delai=0.2f;
+    float delai=0.1f;
 
     while(fenetre.isOpen())
     {
@@ -47,89 +49,139 @@ int main()
                 if(!jeuEnCours)
                 {
                     controleurJ.gestionDplSouris();
+
                 }
-            }
-
-            if(evenement.type==Event::MouseButtonPressed && !jeuEnCours)
-            {
-                  Mouse::Button button = evenement.mouseButton.button;
-                  if (button == Mouse::Left) // Bouton gauche
-                  {
-                      controleurJ.gestionSelecSouris();
-                  }
-            }
-
-
-            if(evenement.type==Event::MouseButtonPressed && jeuEnCours && !jeuPause)
-            {
-                  Mouse::Button button = evenement.mouseButton.button;
-                  if (button == Mouse::Left) // Bouton gauche
-                  {
-
-                  }
-            }
-
-            if(evenement.type==Event::MouseButtonPressed && jeuEnCours && !jeuPause)
-            {
-                  Mouse::Button button = evenement.mouseButton.button;
-                  if (button == Mouse::Right) // Bouton droite
-                  {
-
-                  }
-            }
-
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)  && jeuEnCours && !jeuPause)
-            {
-                controleurJ.rotationTertro(ROTATION_D);
-            }
-
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && jeuEnCours && !jeuPause)
-            {
-
-            }
-
-
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && jeuEnCours && !jeuPause)
-            {
-                if(timer>delai)
+                else if(jeuEnCours && jeuPause)
                 {
-                    controleurJ.mouvementTetro(mouv_g);
-                    timer=0;
+                    controleurJ.gestionDplSouris();
                 }
-
-            }
-
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && jeuEnCours && !jeuPause)
-            {
-                if(timer>delai)
+                else
                 {
-                    controleurJ.mouvementTetro(mouv_d);
-                    timer=0;
+
                 }
-
             }
 
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Z) && jeuEnCours && !jeuPause)
+
+            switch(evenement.type)
             {
-                controleurJ.rotationTertro(ROTATION_G);
+            case Event::MouseButtonPressed:
+                if(jeuEnCours)
+                {
+
+                    if(jeuPause)
+                    {
+                        Mouse::Button button = evenement.mouseButton.button;
+
+                        if (button == Mouse::Left) // Bouton gauche
+                        {
+                            controleurJ.gestionSelecSouris();
+                        }
+
+                        if (button == Mouse::Right) // Bouton droite
+                        {
+
+                        }
+
+                    }
+                    else
+                    {
+                        Mouse::Button button = evenement.mouseButton.button;
+
+                        if (button == Mouse::Left) // Bouton gauche
+                        {
+
+                        }
+
+                        if (button == Mouse::Right) // Bouton droite
+                        {
+
+                        }
+                    }
+                }
+                else
+                {
+                    Mouse::Button button = evenement.mouseButton.button;
+                    if (button == Mouse::Left) // Bouton gauche
+                    {
+                        controleurJ.gestionSelecSouris();
+                        if(jeuDebut)
+                        {
+                            controleurJ.debutJeu();
+                        }
+                    }
+                }
+                break;
+
+            case Event::KeyPressed:
+                if(jeuEnCours)
+                {
+
+                    if(!jeuPause)
+                    {
+                        if(sf::Keyboard::isKeyPressed(Keyboard::Left))
+                        {
+                            if(timer>delai)
+                            {
+                                controleurJ.mouvementTetro(mouv_g);
+                                timer=0;
+                            }
+                        }
+                        else if(sf::Keyboard::isKeyPressed(Keyboard::Right))
+                        {
+                            if(timer>delai)
+                            {
+                                controleurJ.mouvementTetro(mouv_d);
+                                timer=0;
+                            }
+                        }
+                        else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+                        {
+                            controleurJ.rotationTertro(ROTATION_D);
+                        }
+                        else if(sf::Keyboard::isKeyPressed(Keyboard::Down))
+                        {
+
+                        }
+                        else if(sf::Keyboard::isKeyPressed(Keyboard::Z))
+                        {
+                            controleurJ.rotationTertro(ROTATION_G);
+                        }
+                        else if(sf::Keyboard::isKeyPressed(Keyboard::C))
+                        {
+                            controleurJ.stockerTetroActif();
+                        }
+                        else if(sf::Keyboard::isKeyPressed(Keyboard::Escape))
+                        {
+                            controleurJ.pauseJeu();
+                        }
+                        else if(sf::Keyboard::isKeyPressed(Keyboard::Space))
+                        {
+
+                        }
+                        else
+                        {
+
+                        }
+
+                    }
+                    else
+                    {
+                        if(sf::Keyboard::isKeyPressed(Keyboard::Escape))
+                        {
+                            controleurJ.pauseJeu();
+                        }
+                    }
+                }
+                else
+                {
+
+                }
+                break;
+
+            default:;
             }
 
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::C) && jeuEnCours && !jeuPause)
-            {
-                controleurJ.stockerTetroActif();
-            }
 
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)  && jeuEnCours)
-            {
-                controleurJ.pauseJeu();
-            }
-
-
-
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && jeuEnCours && !jeuPause)
-            {
-
-            }
 
 
 

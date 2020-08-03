@@ -76,6 +76,7 @@ Menu::Menu(sf::RenderWindow &fenetre):m_fenetre(0)
     initMenuI3();
     initMenuP();
     initMenuPause();
+    initMenuFinPart();
 
 }
 
@@ -114,6 +115,38 @@ void Menu::initMenuPause()
 void Menu::initMenuFinPart()
 {
     m_sMenuFinP.setTexture(m_tMenuFinP);
+}
+
+void Menu::setTypeMenu(int menuActuel)
+{
+    if(menuActuel==MenuPrincipal)
+    {
+        m_typeMenu=MenuPrincipal;
+    }
+    else if(menuActuel==MenuInstructions1)
+    {
+        m_typeMenu=MenuInstructions1;
+    }
+    else if(menuActuel==MenuInstructions2)
+    {
+        m_typeMenu=MenuInstructions2;
+    }
+    else if(menuActuel==MenuInstructions3)
+    {
+        m_typeMenu=MenuInstructions3;
+    }
+    else if(menuActuel==MenuPause)
+    {
+        m_typeMenu=MenuPause;
+    }
+    else if(menuActuel==MenuFinPartie)
+    {
+        m_typeMenu=MenuFinPartie;
+    }
+    else
+    {
+
+    }
 }
 
 void Menu::afficheMenuP()
@@ -317,6 +350,7 @@ void Menu::selectionElActif()
         if(m_elementActif==JOUER_ACTIF)
         {
             jeuEnCours=true;
+            jeuDebut=true;
         }
         else if(m_elementActif==INSTRUCTIONS_ACTIF)
         {
@@ -336,7 +370,14 @@ void Menu::selectionElActif()
     {
         if(m_elementActif==OK_ACTIF)
         {
-            m_typeMenu=MenuPrincipal;
+            if(!jeuEnCours)
+            {
+                m_typeMenu=MenuPrincipal;
+            }
+            else
+            {
+                m_typeMenu=MenuPause;
+            }
         }
         else if(m_elementActif==SUIVANT_ACTIF)
         {
@@ -355,7 +396,15 @@ void Menu::selectionElActif()
         }
         else if(m_elementActif==OK_ACTIF)
         {
-            m_typeMenu=MenuPrincipal;
+            if(!jeuEnCours)
+            {
+                m_typeMenu=MenuPrincipal;
+            }
+            else
+            {
+                m_typeMenu=MenuPause;
+            }
+
         }
         else if(m_elementActif==SUIVANT_ACTIF)
         {
@@ -374,7 +423,14 @@ void Menu::selectionElActif()
         }
         else if(m_elementActif==OK_ACTIF)
         {
-            m_typeMenu=MenuPrincipal;
+            if(!jeuEnCours)
+            {
+                m_typeMenu=MenuPrincipal;
+            }
+            else
+            {
+                m_typeMenu=MenuPause;
+            }
         }
         else
         {
@@ -393,6 +449,9 @@ void Menu::selectionElActif()
         }
         else if(m_elementActif==PAUSEQ_ACTIF)
         {
+            jeuPause=false;
+            jeuEnCours=false;
+            jeuDebut=false;
             m_typeMenu=MenuPrincipal;
         }
         else
@@ -404,10 +463,16 @@ void Menu::selectionElActif()
     {
         if(m_elementActif==FINPQ_ACTIF)
         {
+            jeuPause=false;
+            jeuEnCours=false;
+            jeuDebut=false;
+            jeuFinPartie=false;
             m_typeMenu=MenuPrincipal;
         }
         else if(m_elementActif==FINPR_ACTIF)
         {
+            jeuPause=false;
+            jeuRejouer=true;
             m_typeMenu=MenuPrincipal;
         }
         else

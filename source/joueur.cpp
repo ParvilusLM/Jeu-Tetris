@@ -14,9 +14,12 @@ Joueur::Joueur(sf::RenderWindow& fenetre):m_fenetre(0)
 
     m_sGrille.setTexture(m_tGrille);
 
+}
+
+void Joueur::initJoueur()
+{
     initFileSuiv();
     ajouteTetromino();
-
 }
 
 Tetromino Joueur::nouvelTetromino()
@@ -361,6 +364,10 @@ void Joueur::mouvementTetromino()
             {
                 effacementRangee();
                 mouvementTetrominos();
+            }
+            else
+            {
+                finJeu();
             }
             ajouteTetromino();
         }
@@ -778,7 +785,7 @@ bool Joueur::rangeePleine()
         {
             rangeePl=true;
             m_vecRangeeASupp.insert(m_vecRangeeASupp.end(),rangee);
-            std::cout<<"Ranger a supprimer: "<<rangee<<std::endl;
+            //std::cout<<"Ranger a supprimer: "<<rangee<<std::endl;
         }
 
         rangee++;
@@ -806,25 +813,25 @@ void Joueur::effacementRangee()
                 {
                     if(m_vecTetrominos.at(indice1).forme.v_blocs.size()>1)
                     {
-                        std::cout<<"\n Effacement simple \n"<<std::endl;
+                        //std::cout<<"\n Effacement simple \n"<<std::endl;
                         m_vecTetrominos.at(indice1).forme.v_blocs.erase(m_vecTetrominos.at(indice1).forme.v_blocs.begin()+indice2);
-                        std::cout<<"Effacement bloc. Restant:"<<m_vecTetrominos.at(indice1).forme.v_blocs.size()<<std::endl;
+                        //std::cout<<"Effacement bloc. Restant:"<<m_vecTetrominos.at(indice1).forme.v_blocs.size()<<std::endl;
                     }
                     else
                     {
                         if(m_vecTetrominos.size()==1)
                         {
-                            std::cout<<"\n Effacement du dernier tetromino \n"<<std::endl;
+                            //std::cout<<"\n Effacement du dernier tetromino \n"<<std::endl;
                             m_vecTetrominos.clear();
                             indice1--;
-                            std::cout<<"Effacement  de tout les Tetrominos. Restant:"<<m_vecTetrominos.size()<<std::endl;
+                            //std::cout<<"Effacement  de tout les Tetrominos. Restant:"<<m_vecTetrominos.size()<<std::endl;
                         }
                         else
                         {
-                            std::cout<<"\n Effacement tetromino \n"<<std::endl;
+                            //std::cout<<"\n Effacement tetromino \n"<<std::endl;
                             m_vecTetrominos.erase(m_vecTetrominos.begin()+indice1);
                             indice1--;
-                            std::cout<<"Effacement Tetromino. Restant:"<<m_vecTetrominos.size()<<std::endl;
+                            //std::cout<<"Effacement Tetromino. Restant:"<<m_vecTetrominos.size()<<std::endl;
                         }
 
                     }
@@ -927,6 +934,32 @@ void Joueur::changerDirTetro(int dir)
     {
 
     }
+}
+
+void Joueur::finJeu()
+{
+    int dern_el=m_vecTetrominos.size()-1;
+    int compt=0;
+    while(compt<m_vecTetrominos.at(dern_el).forme.v_blocs.size())
+    {
+        if(m_vecTetrominos.at(dern_el).forme.v_blocs.at(compt).getPosition().y==8*20.f+10.f)
+        {
+            jeuFinPartie=true;
+        }
+        compt++;
+    }
+
+}
+
+void Joueur::effacementDonnees()
+{
+    //remise a zero des vecteurs
+    m_vecTetrominos.clear();
+    m_vecFileDeGarde.clear();
+    m_vecFileSuiv.clear();
+    m_vecRangeeASupp.clear();
+    m_vecTetroFantome.clear();
+    m_posInitTetro.clear();
 }
 
 Joueur::~Joueur()

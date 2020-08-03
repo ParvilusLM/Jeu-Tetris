@@ -11,7 +11,6 @@ public:
     Controleur(sf::RenderWindow &fenetre);
     ~Controleur();
     void debutJeu();
-    void finJeu();
     void pauseJeu();
 
     void afficheFondEc();
