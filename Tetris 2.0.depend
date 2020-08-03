@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1596418745 source:c:\users\my foe\documents\programmation projets\sfml\version 2.0\proj tetris\tetris 2.0\source\controleur.cpp
+1596421625 source:c:\users\my foe\documents\programmation projets\sfml\version 2.0\proj tetris\tetris 2.0\source\controleur.cpp
 	"controleur.h"
 
 1590977265 source:c:\users\my foe\documents\programmation projets\sfml\version 2.0\proj tetris\tetris 2.0\source\decor.cpp
@@ -455,11 +455,12 @@
 1593137110 c:\users\my foe\documents\programmation projets\sfml\version 2.0\proj tetris\tetris 2.0\source\enums.h
 	<SFML/Graphics.hpp>
 
-1596254314 c:\users\my foe\documents\programmation projets\sfml\version 2.0\proj tetris\tetris 2.0\source\info.h
+1596483124 c:\users\my foe\documents\programmation projets\sfml\version 2.0\proj tetris\tetris 2.0\source\info.h
 	<SFML/Graphics.hpp>
 	"enums.h"
 	"varG.h"
 	"constantes.h"
+	"sstream"
 
 1590976967 c:\users\my foe\documents\programmation projets\sfml\version 2.0\proj tetris\tetris 2.0\source\son.h
 	<SFML/Graphics.hpp>
