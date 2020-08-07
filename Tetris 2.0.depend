@@ -5,7 +5,7 @@
 1590977265 source:c:\users\my foe\documents\programmation projets\sfml\version 2.0\proj tetris\tetris 2.0\source\decor.cpp
 	"decor.h"
 
-1590977507 source:c:\users\my foe\documents\programmation projets\sfml\version 2.0\proj tetris\tetris 2.0\source\info.cpp
+1596841330 source:c:\users\my foe\documents\programmation projets\sfml\version 2.0\proj tetris\tetris 2.0\source\info.cpp
 	"info.h"
 
 1596418746 source:c:\users\my foe\documents\programmation projets\sfml\version 2.0\proj tetris\tetris 2.0\source\menu.cpp
@@ -455,12 +455,16 @@
 1593137110 c:\users\my foe\documents\programmation projets\sfml\version 2.0\proj tetris\tetris 2.0\source\enums.h
 	<SFML/Graphics.hpp>
 
-1596483124 c:\users\my foe\documents\programmation projets\sfml\version 2.0\proj tetris\tetris 2.0\source\info.h
+1596838870 c:\users\my foe\documents\programmation projets\sfml\version 2.0\proj tetris\tetris 2.0\source\info.h
 	<SFML/Graphics.hpp>
+	<iostream>
 	"enums.h"
 	"varG.h"
 	"constantes.h"
 	"sstream"
+	<fstream>
+	<string>
+	<array>
 
 1590976967 c:\users\my foe\documents\programmation projets\sfml\version 2.0\proj tetris\tetris 2.0\source\son.h
 	<SFML/Graphics.hpp>

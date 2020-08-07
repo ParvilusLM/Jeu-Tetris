@@ -2,10 +2,14 @@
 #define DEF_INFO
 
 #include <SFML/Graphics.hpp>
+#include <iostream>
 #include "enums.h"
 #include "varG.h"
 #include "constantes.h"
 #include "sstream"
+#include <fstream>
+#include <string>
+#include <array>
 
 class Info
 {
@@ -13,7 +17,9 @@ public:
     Info(sf::RenderWindow& fenetre);
     void initInfo();
     void reinitInfo();
-    void chargementDonnees();
+    int chargementDonnees();
+    void initDonneesN();
+    void initDonneesScores();
     void gestTableauScore();
     void gestInfoPartEnCours(int action);
     void gestMeilleurJ();
@@ -39,6 +45,8 @@ private:
     int m_score;
     int m_niveau;
     int m_nombrLignes;
+    std::vector<std::string> m_vecNoms;
+    std::vector<std::string> m_vecScores;
 
 };
 #endif // DEF_INFO
