@@ -9,4 +9,6 @@ extern bool jeuFinPartie;
 extern int sourisX,sourisY;
 extern bool tetroLibre;
 
+extern int nbLignesTemp,scoreTemp;
+
 #endif // DEF_VARG

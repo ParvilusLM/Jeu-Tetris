@@ -21,7 +21,7 @@ public:
     void initDonneesN();
     void initDonneesScores();
     void gestTableauScore();
-    void gestInfoPartEnCours(int action);
+    void gestInfoPartEnCours();
     void gestMeilleurJ();
     void maj_Info();
     void afficheInfo();

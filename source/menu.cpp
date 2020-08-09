@@ -11,6 +11,7 @@ Menu::Menu(sf::RenderWindow &fenetre):m_fenetre(0)
     m_tMenuI3.loadFromFile("donnees/instruct3.png");
     m_tMenuPause.loadFromFile("donnees/pause.png");
     m_tMenuFinP.loadFromFile("donnees/gameOver.png");
+    m_tMenuEnregScore.loadFromFile("donnees/meilleur_score.png");
 
     //definitions boiteEBoutons
     boiteEBJ.width=8.f*20.f;
@@ -68,6 +69,11 @@ Menu::Menu(sf::RenderWindow &fenetre):m_fenetre(0)
     boiteEBFR.left=25.5f*20.f;
     boiteEBFR.top=23.9f*20.f;
 
+    boiteEBESOk.width=2.f*20.f;
+    boiteEBESOk.height=2.f*20.f;
+    boiteEBESOk.left=21.f*20.f;
+    boiteEBESOk.top=21.f*20.f;
+
     m_typeMenu=MenuPrincipal;
     initMenuP();
     initMenuI();
@@ -117,6 +123,11 @@ void Menu::initMenuFinPart()
     m_sMenuFinP.setTexture(m_tMenuFinP);
 }
 
+void Menu::initMenuEnregScore()
+{
+    m_sMenuEnregScore.setTexture(m_tMenuEnregScore);
+}
+
 void Menu::setTypeMenu(int menuActuel)
 {
     if(menuActuel==MenuPrincipal)
@@ -142,6 +153,10 @@ void Menu::setTypeMenu(int menuActuel)
     else if(menuActuel==MenuFinPartie)
     {
         m_typeMenu=MenuFinPartie;
+    }
+    else if(menuActuel==MenuEnregScore)
+    {
+        m_typeMenu=MenuEnregScore;
     }
     else
     {
@@ -184,6 +199,11 @@ void Menu::afficheMenuFinPart()
     m_fenetre->draw(m_sMenuFinP);
 }
 
+void Menu::afficheMenuEnregScore()
+{
+    m_fenetre->draw(m_sMenuEnregScore);
+}
+
 void Menu::afficheMenu()
 {
     if(m_typeMenu==MenuPrincipal)
@@ -212,6 +232,10 @@ void Menu::afficheMenu()
     else if(m_typeMenu==MenuFinPartie)
     {
         afficheMenuFinPart();
+    }
+    else if(m_typeMenu==MenuEnregScore)
+    {
+        afficheMenuEnregScore();
     }
     else
     {
@@ -329,6 +353,18 @@ void Menu::elementActif()
         else if(collisionTS(boiteEBFR))
         {
             m_elementActif=FINPR_ACTIF;
+        }
+        else
+        {
+            m_elementActif=AUCUN_EL_ACT;
+        }
+
+    }
+    else if(m_typeMenu==MenuEnregScore)
+    {
+        if(collisionTS(boiteEBESOk))
+        {
+            m_elementActif=ESOk_ACTIF;
         }
         else
         {
@@ -473,6 +509,21 @@ void Menu::selectionElActif()
         {
             jeuPause=false;
             jeuRejouer=true;
+            m_typeMenu=MenuPrincipal;
+        }
+        else
+        {
+
+        }
+    }
+    else if(m_typeMenu==MenuEnregScore)
+    {
+        if(m_elementActif==ESOk_ACTIF)
+        {
+            jeuPause=false;
+            jeuEnCours=false;
+            jeuDebut=false;
+            jeuFinPartie=false;
             m_typeMenu=MenuPrincipal;
         }
         else

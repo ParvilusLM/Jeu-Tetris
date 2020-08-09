@@ -46,6 +46,7 @@ void Controleur::gestionSelecSouris()
 void Controleur::afficheJeu()
 {
     m_decor->getJoueur().afficheG();
+    m_decor->getInfo().afficheInfo();
 
 
     if(jeuPause)
@@ -56,7 +57,7 @@ void Controleur::afficheJeu()
 
 void Controleur::afficheInfo()
 {
-
+    m_decor->getInfo().afficheInfo();
 }
 
 void Controleur::gestMajDonnees()
@@ -87,6 +88,8 @@ void Controleur::gestMajDonnees()
         debutJeu();
         jeuRejouer=false;
     }
+
+    m_decor->getInfo().gestInfoPartEnCours();
 
 
 }

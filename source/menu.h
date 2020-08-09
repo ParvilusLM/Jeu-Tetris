@@ -19,6 +19,7 @@ public:
     void initMenuI3();
     void initMenuPause();
     void initMenuFinPart();
+    void initMenuEnregScore();
 
     void setTypeMenu(int menuActuel);
 
@@ -29,6 +30,7 @@ public:
     void afficheMenuI3();
     void afficheMenuPause();
     void afficheMenuFinPart();
+    void afficheMenuEnregScore();
     void afficheMenu();
 
     void retourMenuP();
@@ -84,8 +86,12 @@ private:
     sf::Texture m_tMenuFinP;
     sf::Sprite m_sMenuFinP;
 
+    //pour menu enregistre score
+    sf::Texture m_tMenuEnregScore;
+    sf::Sprite m_sMenuEnregScore;
+
     //boites engl des boutons
-    sf::FloatRect boiteEBJ,boiteEBI,boiteEBQ,boiteEBPr,boiteEBSuiv,boiteEBOk,boiteEBPR,boiteEBPI,boiteEBPQ,boiteEBFQ,boiteEBFR;
+    sf::FloatRect boiteEBJ,boiteEBI,boiteEBQ,boiteEBPr,boiteEBSuiv,boiteEBOk,boiteEBPR,boiteEBPI,boiteEBPQ,boiteEBFQ,boiteEBFR,boiteEBESOk;
 
 
 };

@@ -13,6 +13,9 @@ bool jeuRejouer=false;
 int sourisX=0,sourisY=0;
 bool tetroLibre=false;
 
+int nbLignesTemp=0,scoreTemp=0;
+
+
 
 
 int main()
@@ -212,6 +215,7 @@ int main()
         else
         {
             controleurJ.afficheMenu();
+            controleurJ.afficheInfo();
         }
 
         fenetre.display();

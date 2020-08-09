@@ -796,6 +796,28 @@ bool Joueur::rangeePleine()
 
 void Joueur::effacementRangee()
 {
+    int nbLignes=m_vecRangeeASupp.size();
+    if(nbLignes==1)
+    {
+        nbLignesTemp=1;
+        scoreTemp=100;
+    }
+    else if(nbLignes==2)
+    {
+        nbLignesTemp=2;
+        scoreTemp=300;
+    }
+    else if(nbLignes==3)
+    {
+        nbLignesTemp=3;
+        scoreTemp=500;
+    }
+    else
+    {
+        nbLignesTemp=1;
+        scoreTemp=800;
+    }
+
     int compt=0;
     while(compt<m_vecRangeeASupp.size())
     {

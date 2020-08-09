@@ -28,7 +28,8 @@ enum TypeMenu
     MenuInstructions2,
     MenuInstructions3,
     MenuPause,
-    MenuFinPartie
+    MenuFinPartie,
+    MenuEnregScore
 
 };
 
@@ -46,7 +47,8 @@ enum
     PAUSEI_ACTIF,
     PAUSEQ_ACTIF,
     FINPQ_ACTIF,
-    FINPR_ACTIF
+    FINPR_ACTIF,
+    ESOk_ACTIF
 
 };
 
@@ -71,6 +73,13 @@ enum
 {
     ROTATION_G,
     ROTATION_D
+};
+
+enum
+{
+    ACTION_AUGM_SCORES,
+    ACTION_AUGM_LIGNES,
+    ACTION_AUGM_NIVEAU
 };
 
 
