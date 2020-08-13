@@ -26,6 +26,7 @@ public:
 
     void gestMajDonnees();
     void mouvementTetro(int dir);
+    void sauvergardeJ(char lettre);
 
     void stockerTetroActif();
 

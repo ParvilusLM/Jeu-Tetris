@@ -1,4 +1,6 @@
 #ifndef DEF_CONSTANTES
 #define DEF_CONSTANTES
 
+const int LONGNOM=10;
+
 #endif // DEF_CONSTANTES

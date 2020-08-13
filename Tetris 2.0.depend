@@ -1,20 +1,20 @@
 # depslib dependency file v1.0
-1596924271 source:c:\users\my foe\documents\programmation projets\sfml\version 2.0\proj tetris\tetris 2.0\source\controleur.cpp
+1597281739 source:c:\users\my foe\documents\programmation projets\sfml\version 2.0\proj tetris\tetris 2.0\source\controleur.cpp
 	"controleur.h"
 
 1590977265 source:c:\users\my foe\documents\programmation projets\sfml\version 2.0\proj tetris\tetris 2.0\source\decor.cpp
 	"decor.h"
 
-1596852535 source:c:\users\my foe\documents\programmation projets\sfml\version 2.0\proj tetris\tetris 2.0\source\info.cpp
+1597270436 source:c:\users\my foe\documents\programmation projets\sfml\version 2.0\proj tetris\tetris 2.0\source\info.cpp
 	"info.h"
 
-1596418746 source:c:\users\my foe\documents\programmation projets\sfml\version 2.0\proj tetris\tetris 2.0\source\menu.cpp
+1597014781 source:c:\users\my foe\documents\programmation projets\sfml\version 2.0\proj tetris\tetris 2.0\source\menu.cpp
 	"menu.h"
 
 1590977447 source:c:\users\my foe\documents\programmation projets\sfml\version 2.0\proj tetris\tetris 2.0\source\son.cpp
 	"son.h"
 
-1596924118 source:c:\users\my foe\documents\programmation projets\sfml\version 2.0\proj tetris\tetris 2.0\source\main.cpp
+1597277456 source:c:\users\my foe\documents\programmation projets\sfml\version 2.0\proj tetris\tetris 2.0\source\main.cpp
 	<iostream>
 	<SFML/Graphics.hpp>
 	"controleur.h"
@@ -431,7 +431,7 @@
 1596924118 source:c:\users\my foe\documents\programmation projets\sfml\version 2.0\proj tetris\tetris 2.0\source\joueur.cpp
 	"joueur.h"
 
-1596406505 c:\users\my foe\documents\programmation projets\sfml\version 2.0\proj tetris\tetris 2.0\source\controleur.h
+1597270796 c:\users\my foe\documents\programmation projets\sfml\version 2.0\proj tetris\tetris 2.0\source\controleur.h
 	<SFML/Graphics.hpp>
 	"decor.h"
 
@@ -442,22 +442,23 @@
 	"son.h"
 	"joueur.h"
 
-1596339876 c:\users\my foe\documents\programmation projets\sfml\version 2.0\proj tetris\tetris 2.0\source\menu.h
+1597011477 c:\users\my foe\documents\programmation projets\sfml\version 2.0\proj tetris\tetris 2.0\source\menu.h
 	<SFML/Graphics.hpp>
 	"constantes.h"
 	"varG.h"
 	"enums.h"
 
-1590544204 c:\users\my foe\documents\programmation projets\sfml\version 2.0\proj tetris\tetris 2.0\source\constantes.h
+1597108300 c:\users\my foe\documents\programmation projets\sfml\version 2.0\proj tetris\tetris 2.0\source\constantes.h
 
 1596924118 c:\users\my foe\documents\programmation projets\sfml\version 2.0\proj tetris\tetris 2.0\source\varg.h
 
-1596921418 c:\users\my foe\documents\programmation projets\sfml\version 2.0\proj tetris\tetris 2.0\source\enums.h
+1597012289 c:\users\my foe\documents\programmation projets\sfml\version 2.0\proj tetris\tetris 2.0\source\enums.h
 	<SFML/Graphics.hpp>
 
-1596923878 c:\users\my foe\documents\programmation projets\sfml\version 2.0\proj tetris\tetris 2.0\source\info.h
+1597280696 c:\users\my foe\documents\programmation projets\sfml\version 2.0\proj tetris\tetris 2.0\source\info.h
 	<SFML/Graphics.hpp>
 	<iostream>
+	<iomanip>
 	"enums.h"
 	"varG.h"
 	"constantes.h"

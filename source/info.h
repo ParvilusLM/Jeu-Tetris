@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <iomanip>
 #include "enums.h"
 #include "varG.h"
 #include "constantes.h"
@@ -22,9 +23,11 @@ public:
     void initDonneesScores();
     void gestTableauScore();
     void gestInfoPartEnCours();
-    void gestMeilleurJ();
+    void gestMeilleurJ(char characTape);
     void maj_Info();
     void afficheInfo();
+    void afficheNomAEnreg();
+    bool surPodium();
 
     template <class T> std::string nbEnString(T nb);
     ~Info();
@@ -36,6 +39,7 @@ private:
     sf::Text m_txtNomsJ;
     sf::Text m_txtScoresJ;
     sf::Text m_txtInfoJeu;
+    sf::Text m_txtNomAEnreg;
 
     sf::Font m_fntNoms;
     sf::Font m_fntChiffres;
@@ -47,6 +51,8 @@ private:
     int m_nombrLignes;
     std::vector<std::string> m_vecNoms;
     std::vector<std::string> m_vecScores;
+
+    std::string m_nomAENreg;
 
 };
 #endif // DEF_INFO

@@ -83,6 +83,7 @@ Menu::Menu(sf::RenderWindow &fenetre):m_fenetre(0)
     initMenuP();
     initMenuPause();
     initMenuFinPart();
+    initMenuEnregScore();
 
 }
 

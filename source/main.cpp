@@ -181,6 +181,20 @@ int main()
                 }
                 break;
 
+            case Event::TextEntered:
+                if(jeuEnCours && jeuPause)
+                {
+                    if(evenement.text.unicode>96 && evenement.text.unicode<123)
+                    {
+                        char characTape;
+                        characTape=static_cast<char>(evenement.text.unicode);
+                        std::cout<<"ASCII character : "<<evenement.text.unicode<<std::endl;
+                        controleurJ.sauvergardeJ(characTape);
+                    }
+
+                }
+                break;
+
             default:;
             }
 

@@ -48,6 +48,12 @@ void Info::initInfo()
     m_txtInfoJeu.setFillColor(sf::Color::White);
     m_txtInfoJeu.setLineSpacing(2.2f);
 
+    m_txtNomAEnreg.setFont(m_fntNoms);
+    m_txtNomAEnreg.setCharacterSize(30);
+    m_txtNomAEnreg.setPosition(18.f*20.f+10.f,17.9f*20.f+5.f);
+    m_txtNomAEnreg.setFillColor(sf::Color::White);
+
+
 
     //info sur le niveau en cours
     m_score=0;
@@ -109,7 +115,7 @@ int Info::chargementDonnees()
     int compt=0;
     while(compt<m_vecNoms.size())
     {
-        //std::cout<<m_vecNoms.at(compt)<<std::endl;
+
         compt++;
     }
     fclose(fichierNoms);
@@ -229,9 +235,11 @@ void Info::gestInfoPartEnCours()
 
 }
 
-void Info::gestMeilleurJ()
+void Info::gestMeilleurJ(char characTape)
 {
 
+    m_nomAENreg+=characTape;
+    m_txtNomAEnreg.setString(m_nomAENreg);
 }
 
 void Info::maj_Info()
@@ -250,6 +258,28 @@ void Info::afficheInfo()
         m_fenetre->draw(m_txtNomsJ);
         m_fenetre->draw(m_txtScoresJ);
     }
+}
+
+void Info::afficheNomAEnreg()
+{
+    m_fenetre->draw(m_txtNomAEnreg);
+}
+
+bool Info::surPodium()
+{
+    bool podium=false;
+
+    int cmpt=0;
+    while(cmpt<3)
+    {
+        if(std::stoi(m_vecScores.at(0))<m_score)
+        {
+            podium=true;
+        }
+        cmpt++;
+    }
+
+    return podium;
 }
 
 template <class T> std::string Info::nbEnString(T nb)

@@ -52,6 +52,7 @@ void Controleur::afficheJeu()
     if(jeuPause)
     {
         afficheMenu();
+        m_decor->getInfo().afficheNomAEnreg();
     }
 }
 
@@ -74,11 +75,17 @@ void Controleur::gestMajDonnees()
 
     if(jeuFinPartie)
     {
-        std::cout<<"Fin de partie Jeu"<<std::endl;
         jeuPause=true;
 
-        //m_decor->getJoueur().effacementDonnees();
-        m_decor->getMenu().setTypeMenu(MenuFinPartie);
+        if(m_decor->getInfo().surPodium())
+        {
+            m_decor->getMenu().setTypeMenu(MenuEnregScore);
+        }
+        else
+        {
+            m_decor->getMenu().setTypeMenu(MenuFinPartie);
+        }
+
         jeuFinPartie=false;
     }
 
@@ -101,6 +108,11 @@ void Controleur::mouvementTetro(int dir)
 
 }
 
+void Controleur::sauvergardeJ(char lettre)
+{
+    m_decor->getInfo().gestMeilleurJ(lettre);
+}
+
 void Controleur::stockerTetroActif()
 {
     m_decor->getJoueur().ajouteTetroFileDeGarde();
@@ -108,7 +120,6 @@ void Controleur::stockerTetroActif()
 
 void Controleur::pauseJeu()
 {
-    std::cout<<"Fonction pauseJeu"<<std::endl;
     if(jeuPause)
     {
         jeuPause=false;
