@@ -165,6 +165,11 @@ void Menu::setTypeMenu(int menuActuel)
     }
 }
 
+TypeMenu Menu::getTypeMenu()
+{
+    return m_typeMenu;
+}
+
 void Menu::afficheMenuP()
 {
     m_fenetre->draw(m_sMenuP);
@@ -525,6 +530,7 @@ void Menu::selectionElActif()
             jeuEnCours=false;
             jeuDebut=false;
             jeuFinPartie=false;
+            jeuSauvegarde=true;
             m_typeMenu=MenuPrincipal;
         }
         else

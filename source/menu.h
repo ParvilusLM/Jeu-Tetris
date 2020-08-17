@@ -22,6 +22,7 @@ public:
     void initMenuEnregScore();
 
     void setTypeMenu(int menuActuel);
+    TypeMenu getTypeMenu();
 
     void afficheMenuP();
     void afficheMenuI();

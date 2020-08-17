@@ -31,6 +31,11 @@ void Controleur::afficheFondEc()
 void Controleur::afficheMenu()
 {
     m_decor->getMenu().afficheMenu();
+    if(m_decor->getMenu().getTypeMenu()==MenuPrincipal)
+    {
+        afficheInfo();
+    }
+
 }
 
 void Controleur::gestionDplSouris()
@@ -89,6 +94,12 @@ void Controleur::gestMajDonnees()
         jeuFinPartie=false;
     }
 
+    if(jeuSauvegarde)
+    {
+        m_decor->getInfo().sauvegardeScore();
+        jeuSauvegarde=false;
+    }
+
 
     if(jeuRejouer)
     {
@@ -108,9 +119,15 @@ void Controleur::mouvementTetro(int dir)
 
 }
 
-void Controleur::sauvergardeJ(char lettre)
+void Controleur::saisieL(char lettre)
 {
-    m_decor->getInfo().gestMeilleurJ(lettre);
+    m_decor->getInfo().gestSaisieNom(lettre);
+}
+
+void Controleur::sauvegardeScore()
+{
+    m_decor->getInfo().sauvegardeScore();
+    jeuSauvegarde=false;
 }
 
 void Controleur::stockerTetroActif()

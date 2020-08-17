@@ -10,9 +10,9 @@ bool jeuPause=false;
 bool jeuFinPartie=false;
 bool jeuDebut=false;
 bool jeuRejouer=false;
-int sourisX=0,sourisY=0;
+bool jeuSauvegarde=false;
 bool tetroLibre=false;
-
+int sourisX=0,sourisY=0;
 int nbLignesTemp=0,scoreTemp=0;
 
 
@@ -189,7 +189,7 @@ int main()
                         char characTape;
                         characTape=static_cast<char>(evenement.text.unicode);
                         std::cout<<"ASCII character : "<<evenement.text.unicode<<std::endl;
-                        controleurJ.sauvergardeJ(characTape);
+                        controleurJ.saisieL(characTape);
                     }
 
                 }
@@ -197,10 +197,6 @@ int main()
 
             default:;
             }
-
-
-
-
 
 
         }
@@ -215,7 +211,10 @@ int main()
         }
         else
         {
-
+            if(jeuSauvegarde)
+            {
+                controleurJ.sauvegardeScore();
+            }
         }
 
         fenetre.clear(Color(82,82,82));
@@ -229,7 +228,6 @@ int main()
         else
         {
             controleurJ.afficheMenu();
-            controleurJ.afficheInfo();
         }
 
         fenetre.display();

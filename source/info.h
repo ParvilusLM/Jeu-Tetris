@@ -23,7 +23,8 @@ public:
     void initDonneesScores();
     void gestTableauScore();
     void gestInfoPartEnCours();
-    void gestMeilleurJ(char characTape);
+    void gestSaisieNom(char characTape);
+    void sauvegardeScore();
     void maj_Info();
     void afficheInfo();
     void afficheNomAEnreg();

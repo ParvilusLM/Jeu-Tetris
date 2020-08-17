@@ -6,9 +6,9 @@ extern bool jeuPause;
 extern bool jeuDebut;
 extern bool jeuRejouer;
 extern bool jeuFinPartie;
-extern int sourisX,sourisY;
+extern bool jeuSauvegarde;
 extern bool tetroLibre;
-
+extern int sourisX,sourisY;
 extern int nbLignesTemp,scoreTemp;
 
 #endif // DEF_VARG

@@ -546,14 +546,78 @@ void Joueur::rotationTetromino(int sensR)
             }
 
 
-            //std::cout<<"Position xf: "<<xf<<std::endl;
-            //std::cout<<"Position yf: "<<yf<<std::endl;
-
-            m_vecTetrominos.at(dern_el).forme.v_blocs.at(comptt).setPosition(xf,yf);
+            m_posFictTetro.at(comptt).x=xf;
+            m_posFictTetro.at(comptt).y=yf;
 
             comptt++;
         }
+
+        //**test de collisions**//
+        bool collisB=false,collisF=false,collisT=false;
+
+        //bords
+        int comptt2=0;
+        while(comptt2<4)
+        {
+            if(m_posFictTetro.at(comptt2).x< 17.f*20.f || m_posFictTetro.at(comptt2).x> 27.f*20.f)
+            {
+                collisB=true;
+            }
+            comptt2++;
+        }
+
+
+        //fond
+        int comptt3=0;
+        while(comptt3<4)
+        {
+            if(m_posFictTetro.at(comptt3).y > 28.f*20.f)
+            {
+                collisF=true;
+            }
+            comptt3++;
+        }
+
+        //tetrominos
+        int comptt4=0;
+        while(comptt4<4)
+        {
+            int comptt5=0;
+            while(comptt5<m_vecTetrominos.size()-1)
+            {
+                int comptt6=0;
+                while(comptt6<m_vecTetrominos.at(comptt5).forme.v_blocs.size())
+                {
+                    if(m_posFictTetro.at(comptt4).x == m_vecTetrominos.at(comptt5).forme.v_blocs.at(comptt6).getPosition().x &&
+                       m_posFictTetro.at(comptt4).y == m_vecTetrominos.at(comptt5).forme.v_blocs.at(comptt6).getPosition().y)
+                    {
+                        collisT=true;
+                    }
+
+                    comptt6++;
+                }
+
+                comptt5++;
+            }
+            comptt4++;
+        }
+
+
+        if(!collisB && !collisF && !collisT)
+        {
+            int compt2=0;
+            while(compt2<4)
+            {
+                m_vecTetrominos.at(dern_el).forme.v_blocs.at(compt2).setPosition(m_posFictTetro.at(compt2).x,m_posFictTetro.at(compt2).y);
+                compt2++;
+            }
+        }
+
     }
+
+
+
+
 
 }
 

@@ -1,5 +1,7 @@
 #include "info.h"
 
+using namespace std;
+
 Info::Info(sf::RenderWindow& fenetre):m_fenetre(0)
 {
     m_fenetre=&fenetre;
@@ -70,6 +72,7 @@ void Info::reinitInfo()
 
 int Info::chargementDonnees()
 {
+    std::cout<<"Entree Fonction chargement"<<std::endl;
 
     //gestion fichier noms des joueurs
     std::string const nomFichierN("donnees/nomsJ.plm");
@@ -85,40 +88,30 @@ int Info::chargementDonnees()
         fichierNoms=fopen(nomFichierN.c_str(),"r");
     }
 
-    do
-    {
-        caractereLu=fgetc(fichierNoms);
-        if(caractereLu == '\n')
-            nbNoms++;
+    //rewind(fichierNoms);
 
-    }while(caractereLu != EOF);
-
-    while(noNoms<3)
-    {
-        noLigneChoisi=noNoms;
-        rewind(fichierNoms);
-
-        while(noLigneChoisi>0)
-        {
-            caractereLu=fgetc(fichierNoms);
-            if(caractereLu == '\n')
-                noLigneChoisi--;
-        }
+    //Nom 1
+    std::cout<<"NOM 1 :"<<ftell(fichierNoms)<<std::endl;
+    m_vecNoms.insert(m_vecNoms.end(),fgets(ligneFichierN,10,fichierNoms));
 
 
-        m_vecNoms.insert(m_vecNoms.end(),fgets(ligneFichierN,10,fichierNoms));
+    //Nom 2
+    std::cout<<"NOM 2: "<<ftell(fichierNoms)<<std::endl;
+    m_vecNoms.insert(m_vecNoms.end(),fgets(ligneFichierN,10,fichierNoms));
 
-        noNoms++;
 
-    }
+    //Nom 3
+    std::cout<<"NOM 3: "<<ftell(fichierNoms)<<std::endl;
+    m_vecNoms.insert(m_vecNoms.end(),fgets(ligneFichierN,10,fichierNoms));
 
-    int compt=0;
-    while(compt<m_vecNoms.size())
-    {
 
-        compt++;
-    }
+    std::cout<<"Taille m_vecNoms: "<<m_vecNoms.size()<<std::endl;
+
     fclose(fichierNoms);
+
+
+
+    std::cout<<"Moitie Fonction chargement"<<std::endl;
 
     //gestion des scores des joueurs
     std::string const nomFichierScores("donnees/scoresJ.plm");
@@ -136,57 +129,30 @@ int Info::chargementDonnees()
 
     }
 
-    do
-    {
-        caractereLu=fgetc(fichierScores);
-        if(caractereLu == '\n')
-            nbScores++;
 
-    }while(caractereLu != EOF);
-
-    while(noScores<3)
-    {
-        noLigneChoisi=noScores;
-        rewind(fichierScores);
-
-        while(noLigneChoisi>0)
-        {
-            caractereLu=fgetc(fichierScores);
-            if(caractereLu == '\n')
-                noLigneChoisi--;
-        }
+    m_vecScores.insert(m_vecScores.end(),fgets(ligneFichierSc,6,fichierScores));
+    m_vecScores.insert(m_vecScores.end(),fgets(ligneFichierSc,6,fichierScores));
+    m_vecScores.insert(m_vecScores.end(),fgets(ligneFichierSc,6,fichierScores));
 
 
-        m_vecScores.insert(m_vecScores.end(),fgets(ligneFichierSc,10,fichierScores));
-
-        noScores++;
-
-    }
-
-    int comptt=0;
-    while(comptt<m_vecScores.size())
-    {
-        //std::cout<<m_vecScores.at(comptt)<<std::endl;
-        comptt++;
-    }
     fclose(fichierScores);
-
-
-
+    std::cout<<"Sortie Fonction chargement"<<std::endl;
 }
 
 void Info::initDonneesN()
 {
     std::string const nomFichierN("donnees/nomsJ.plm");
+
     std::ofstream monFlux(nomFichierN.c_str());
 
     int nbN=3;
     while(nbN>0)
     {
         monFlux<<"Nul"<<std::endl;
+
         nbN--;
     }
-
+    monFlux.close();
 
 }
 
@@ -199,8 +165,10 @@ void Info::initDonneesScores()
     while(nbN>0)
     {
         monFlux<<"0"<<std::endl;
+
         nbN--;
     }
+    monFlux.close();
 }
 
 void Info::gestTableauScore()
@@ -210,7 +178,7 @@ void Info::gestTableauScore()
     m_txtNomsJ.setString(m_streamNomsJ.str());
 
     m_streamScoresJ.str("");
-    m_streamScoresJ<<m_vecScores.at(0)<<"\n"<<m_vecScores.at(0)<<"\n"<<m_vecScores.at(0);
+    m_streamScoresJ<<m_vecScores.at(0)<<"\n"<<m_vecScores.at(1)<<"\n"<<m_vecScores.at(2);
     m_txtScoresJ.setString(m_streamScoresJ.str());
 
 }
@@ -235,11 +203,97 @@ void Info::gestInfoPartEnCours()
 
 }
 
-void Info::gestMeilleurJ(char characTape)
+void Info::gestSaisieNom(char characTape)
 {
+    if(m_nomAENreg.size()<5)
+    {
+        m_nomAENreg+=characTape;
+        m_txtNomAEnreg.setString(m_nomAENreg);
+    }
 
-    m_nomAENreg+=characTape;
-    m_txtNomAEnreg.setString(m_nomAENreg);
+}
+
+void Info::sauvegardeScore()
+{
+    int posJoueur=0;
+
+    int compt=0;
+    int dern_el=m_vecScores.size()-1;
+    while(compt<m_vecScores.size())
+    {
+        int score=std::stoi(m_vecScores.at(dern_el));
+        if(m_score==score || m_score>score)
+        {
+            posJoueur=dern_el+1;
+        }
+        dern_el--;
+        compt++;
+    }
+
+
+
+    //remplir les vecteurs scores et noms
+    posJoueur--;
+
+    m_vecScores.insert(m_vecScores.begin()+posJoueur,nbEnString(m_score));
+    m_vecScores.pop_back();
+
+    m_vecNoms.insert(m_vecNoms.begin()+posJoueur,m_nomAENreg);
+    m_vecNoms.pop_back();
+
+    std::cout<<"Taille m_vecScores :"<<m_vecScores.size()<<"\n Taille m_vecNoms :"<<m_vecNoms.size()<<std::endl;
+
+
+    //Sauvegarde dans les fichiers
+
+    std::string const nomFichierS("donnees/scoresJ.plm");
+    std::string const nomFichierN("donnees/nomsJ.plm");
+
+
+    //ecriture dans le fichier score
+    {
+        int posCurseur=0;
+        std::ofstream monFlux(nomFichierS.c_str());
+
+        //monFlux.seekp(posCurseur);
+        monFlux<<m_vecScores.at(0)<<std::endl;
+
+        //posCurseur+=m_vecScores.at(0).size()+1;
+        //monFlux.seekp(posCurseur);
+        monFlux<<m_vecScores.at(1);
+
+        //posCurseur+=m_vecScores.at(1).size()+1;
+        //monFlux.seekp(posCurseur);
+        monFlux<<m_vecScores.at(2);
+
+        monFlux.close();
+
+    }
+
+
+
+    //ecriture dans le fichier nom
+    {
+        int posCurseur=0;
+        std::ofstream monFluxN(nomFichierN.c_str());
+
+        //monFluxN.seekp(posCurseur);
+        monFluxN<<m_vecNoms.at(0)<<std::endl;
+
+        //posCurseur+=m_vecNoms.at(0).size()+1;
+        //monFluxN.seekp(posCurseur);
+        monFluxN<<m_vecNoms.at(1);
+
+        //posCurseur+=m_vecNoms.at(1).size()+1;
+        //monFluxN.seekp(posCurseur);
+        monFluxN<<m_vecNoms.at(2);
+
+
+        monFluxN.close();
+    }
+
+
+
 }
 
 void Info::maj_Info()
