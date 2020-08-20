@@ -11,7 +11,7 @@ bool jeuFinPartie=false;
 bool jeuDebut=false;
 bool jeuRejouer=false;
 bool jeuSauvegarde=false;
-bool tetroLibre=false;
+bool tetroLibre=false;//pour liberer le tetromino en stock
 int sourisX=0,sourisY=0;
 int nbLignesTemp=0,scoreTemp=0;
 
@@ -214,6 +214,7 @@ int main()
             if(jeuSauvegarde)
             {
                 controleurJ.sauvegardeScore();
+                controleurJ.reinitTablScore();
             }
         }
 

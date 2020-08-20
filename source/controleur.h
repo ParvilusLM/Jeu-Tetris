@@ -28,6 +28,7 @@ public:
     void mouvementTetro(int dir);
     void saisieL(char lettre);
     void sauvegardeScore();
+    void reinitTablScore();
 
     void stockerTetroActif();
 

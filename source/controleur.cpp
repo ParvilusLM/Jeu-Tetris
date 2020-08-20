@@ -57,7 +57,11 @@ void Controleur::afficheJeu()
     if(jeuPause)
     {
         afficheMenu();
-        m_decor->getInfo().afficheNomAEnreg();
+        if(m_decor->getMenu().getTypeMenu()==MenuEnregScore)
+        {
+            m_decor->getInfo().afficheNomAEnreg();
+        }
+
     }
 }
 
@@ -133,6 +137,11 @@ void Controleur::sauvegardeScore()
 void Controleur::stockerTetroActif()
 {
     m_decor->getJoueur().ajouteTetroFileDeGarde();
+}
+
+void Controleur::reinitTablScore()
+{
+   m_decor->getInfo().gestTableauScore();
 }
 
 void Controleur::pauseJeu()
