@@ -4,7 +4,7 @@ Controleur::Controleur(sf::RenderWindow &fenetre):m_fenetre(0),m_decor(0)
 {
     m_fenetre= &fenetre;
 
-    delai=0.3f;
+    delai=0.1f;
     timer=0;
 
     m_decor = new Decor(*m_fenetre);

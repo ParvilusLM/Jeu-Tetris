@@ -33,14 +33,12 @@ void Info::initInfo()
     m_txtNomsJ.setCharacterSize(20);
     m_txtNomsJ.setPosition(18.3f*20.f+4.f,21.f*20.f-3.f);
     m_txtNomsJ.setFillColor(sf::Color::Black);
-    //m_txtNomsJ.setLineSpacing(0.6f);
 
 
     m_txtScoresJ.setFont(m_fntNoms);
     m_txtScoresJ.setCharacterSize(20);
     m_txtScoresJ.setPosition(22.f*20.f+10.f,21.f*20.f-3.f);
     m_txtScoresJ.setFillColor(sf::Color::Black);
-    //m_txtScoresJ.setLineSpacing(0.6f);
 
 
 
@@ -187,15 +185,18 @@ void Info::initDonneesScores()
 
 void Info::gestTableauScore()
 {
-    m_txtNomsJ.setLineSpacing(0.6f);
-    m_streamNomsJ.str("");
-    m_streamNomsJ<<m_vecNoms.at(0)<<"\n"<<m_vecNoms.at(1)<<"\n"<<m_vecNoms.at(2);
-    m_txtNomsJ.setString(m_streamNomsJ.str());
 
-    m_txtScoresJ.setLineSpacing(0.6f);
+
+    m_streamNomsJ.str("");
+    m_streamNomsJ<<m_vecNoms.at(0)<<"\n"<<m_vecNoms.at(1)<<"\n"<<m_vecNoms.at(2)<<"\n";
+    m_txtNomsJ.setString(m_streamNomsJ.str());
+    m_txtNomsJ.setLineSpacing(0.6f);
+
+
     m_streamScoresJ.str("");
-    m_streamScoresJ<<m_vecScores.at(0)<<"\n"<<m_vecScores.at(1)<<"\n"<<m_vecScores.at(2);
+    m_streamScoresJ<<m_vecScores.at(0)<<"\n"<<m_vecScores.at(1)<<"\n"<<m_vecScores.at(2)<<"\n";
     m_txtScoresJ.setString(m_streamScoresJ.str());
+    m_txtScoresJ.setLineSpacing(0.6f);
 
 }
 
@@ -238,7 +239,7 @@ void Info::sauvegardeScore()
     while(compt<m_vecScores.size())
     {
         int score=std::stoi(m_vecScores.at(dern_el));
-        if(m_score==score || m_score>score)
+        if(m_score>=score)
         {
             posJoueur=dern_el+1;
         }
