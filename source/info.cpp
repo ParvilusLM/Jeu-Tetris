@@ -72,8 +72,6 @@ void Info::reinitInfo()
 
 int Info::chargementDonnees()
 {
-    std::cout<<"Entree Fonction chargement"<<std::endl;
-
     //gestion fichier noms des joueurs
     std::string const nomFichierN("donnees/nomsJ.plm");
     FILE* fichierNoms=NULL;
@@ -101,18 +99,10 @@ int Info::chargementDonnees()
         m_vecNoms.insert(m_vecNoms.end(),nom);
 
         nbNoms++;
-        std::cout<<"Valeur string: "<<nom<<nom.empty()<<" : "<<nom.size()<<std::endl;
 
     }
 
-
-    std::cout<<"Taille m_vecNoms: "<<m_vecNoms.size()<<std::endl;
-
     fclose(fichierNoms);
-
-
-
-    std::cout<<"Moitie Fonction chargement"<<std::endl;
 
     //gestion des scores des joueurs
     std::string const nomFichierScores("donnees/scoresJ.plm");
@@ -143,12 +133,10 @@ int Info::chargementDonnees()
         m_vecScores.insert(m_vecScores.end(),score);
 
         nbScores++;
-        std::cout<<"Valeur string: "<<score<<score.empty()<<std::endl;
 
     }
 
     fclose(fichierScores);
-    std::cout<<"Sortie Fonction chargement"<<std::endl;
 }
 
 void Info::initDonneesN()

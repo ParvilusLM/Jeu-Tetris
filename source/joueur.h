@@ -35,6 +35,7 @@ public:
     bool collisionsBords();
     bool collisionsTetrominos(int typeTetro);
     void changerDirTetro(int dir);
+    void teleportationTetro();
 
     bool rangeePleine();
     void effacementRangee();

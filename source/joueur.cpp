@@ -1,5 +1,7 @@
 #include "joueur.h"
 
+using namespace std;
+
 Joueur::Joueur(sf::RenderWindow& fenetre):m_fenetre(0)
 {
     m_fenetre=&fenetre;
@@ -357,6 +359,7 @@ void Joueur::mouvementTetromino()
             }
 
             ajouteTetromino();
+            descenteRap=false;
         }
         else if(m_dirB && collisionT)
         {
@@ -370,6 +373,7 @@ void Joueur::mouvementTetromino()
                 finJeu();
             }
             ajouteTetromino();
+            descenteRap=false;
         }
         else
         {
@@ -899,25 +903,24 @@ void Joueur::effacementRangee()
                 {
                     if(m_vecTetrominos.at(indice1).forme.v_blocs.size()>1)
                     {
-                        //std::cout<<"\n Effacement simple \n"<<std::endl;
                         m_vecTetrominos.at(indice1).forme.v_blocs.erase(m_vecTetrominos.at(indice1).forme.v_blocs.begin()+indice2);
-                        //std::cout<<"Effacement bloc. Restant:"<<m_vecTetrominos.at(indice1).forme.v_blocs.size()<<std::endl;
+
                     }
                     else
                     {
                         if(m_vecTetrominos.size()==1)
                         {
-                            //std::cout<<"\n Effacement du dernier tetromino \n"<<std::endl;
+
                             m_vecTetrominos.clear();
                             indice1--;
-                            //std::cout<<"Effacement  de tout les Tetrominos. Restant:"<<m_vecTetrominos.size()<<std::endl;
+
                         }
                         else
                         {
-                            //std::cout<<"\n Effacement tetromino \n"<<std::endl;
+
                             m_vecTetrominos.erase(m_vecTetrominos.begin()+indice1);
                             indice1--;
-                            //std::cout<<"Effacement Tetromino. Restant:"<<m_vecTetrominos.size()<<std::endl;
+
                         }
 
                     }
@@ -1034,6 +1037,11 @@ void Joueur::finJeu()
         }
         compt++;
     }
+
+}
+
+void Joueur::teleportationTetro()
+{
 
 }
 

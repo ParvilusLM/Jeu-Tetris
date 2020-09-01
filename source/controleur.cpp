@@ -1,10 +1,12 @@
 #include "controleur.h"
 
+using namespace std;
+
 Controleur::Controleur(sf::RenderWindow &fenetre):m_fenetre(0),m_decor(0)
 {
     m_fenetre= &fenetre;
 
-    delai=0.1f;
+    delai=VITESSE_I;
     timer=0;
 
     m_decor = new Decor(*m_fenetre);
@@ -76,6 +78,11 @@ void Controleur::gestMajDonnees()
     horloge.restart();
     timer+=temps;
 
+    if(!descenteRap)
+    {
+        delai=VITESSE_I;
+    }
+
     if(timer>delai)
     {
         m_decor->getJoueur().mouvementTetromino();
@@ -142,6 +149,21 @@ void Controleur::stockerTetroActif()
 void Controleur::reinitTablScore()
 {
    m_decor->getInfo().gestTableauScore();
+}
+
+void Controleur::descenteRapide()
+{
+    if(descenteRap)
+    {
+        descenteRap=false;
+    }
+    else
+    {
+        descenteRap=true;
+        delai=0.1f;
+    }
+
+
 }
 
 void Controleur::pauseJeu()

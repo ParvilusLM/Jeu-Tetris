@@ -12,6 +12,7 @@ bool jeuDebut=false;
 bool jeuRejouer=false;
 bool jeuSauvegarde=false;
 bool tetroLibre=false;//pour liberer le tetromino en stock
+bool descenteRap=false;
 int sourisX=0,sourisY=0;
 int nbLignesTemp=0,scoreTemp=0;
 
@@ -143,7 +144,7 @@ int main()
                         }
                         else if(sf::Keyboard::isKeyPressed(Keyboard::Down))
                         {
-
+                            controleurJ.descenteRapide();
                         }
                         else if(sf::Keyboard::isKeyPressed(Keyboard::Z))
                         {

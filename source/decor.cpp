@@ -1,5 +1,7 @@
 #include "decor.h"
 
+using namespace std;
+
 Decor::Decor(sf::RenderWindow& fenetre):m_fenetre(0),m_joueur(0),m_menu(0),m_info(0),m_son(0)
 {
     m_fenetre=&fenetre;
