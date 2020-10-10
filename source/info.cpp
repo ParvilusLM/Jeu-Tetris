@@ -238,11 +238,14 @@ void Info::sauvegardeScore()
 
 
     //remplir les vecteurs scores et noms
-    posJoueur--;
+    std::string strScore=nbEnString(m_score);
+    strScore+='\n';
 
-    m_vecScores.insert(m_vecScores.begin()+posJoueur,nbEnString(m_score));
+    posJoueur--;
+    m_vecScores.insert(m_vecScores.begin()+posJoueur, strScore);
     m_vecScores.pop_back();
 
+    m_nomAENreg+='\n';
     m_vecNoms.insert(m_vecNoms.begin()+posJoueur,m_nomAENreg);
     m_vecNoms.pop_back();
 

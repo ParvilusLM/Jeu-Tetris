@@ -166,6 +166,11 @@ void Controleur::descenteRapide()
 
 }
 
+void Controleur::teleporTetro()
+{
+    m_decor->getJoueur().teleportationTetro();
+}
+
 void Controleur::pauseJeu()
 {
     if(jeuPause)

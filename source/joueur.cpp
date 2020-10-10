@@ -1042,7 +1042,13 @@ void Joueur::finJeu()
 
 void Joueur::teleportationTetro()
 {
-
+    int compt=0;
+    int indDernEL=m_vecTetrominos.size()-1;
+    while(compt<m_vecTetrominos.at(indDernEL).forme.v_blocs.size())
+    {
+        m_vecTetrominos.at(indDernEL).forme.v_blocs.at(compt).setPosition(m_vecTetroFantome.at(0).forme.v_blocs.at(compt).getPosition());
+        compt++;
+    }
 }
 
 void Joueur::effacementDonnees()

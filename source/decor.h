@@ -28,7 +28,7 @@ private:
     sf::RenderWindow* m_fenetre;
     Joueur* m_joueur;
     Son* m_son;
-    Info* m_info;
+    Info*  m_info;
     Menu* m_menu;
 
     sf::Texture m_tFondG;

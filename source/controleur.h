@@ -24,6 +24,7 @@ public:
     void gestionSelecSouris();
     void rotationTertro(int sensR);
     void descenteRapide();
+    void teleporTetro();
     void gestMajDonnees();
     void mouvementTetro(int dir);
     void saisieL(char lettre);

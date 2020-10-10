@@ -93,12 +93,12 @@ int main()
 
                         if (button == Mouse::Left) // Bouton gauche
                         {
-
+                            controleurJ.teleporTetro();
                         }
 
                         if (button == Mouse::Right) // Bouton droite
                         {
-
+                            controleurJ.stockerTetroActif();
                         }
                     }
                 }
@@ -160,7 +160,7 @@ int main()
                         }
                         else if(sf::Keyboard::isKeyPressed(Keyboard::Space))
                         {
-
+                            controleurJ.teleporTetro();
                         }
                         else
                         {

@@ -22,7 +22,7 @@ Dans le dossier screenshots vous trouverez des apercus du jeu
 
 
 ## Specifications
-**Outils utilises*
+**Outils utilises**
 -IDE : CodeBlocks
 -OS  : Windows
 -Bibliotheque externe : SFML
